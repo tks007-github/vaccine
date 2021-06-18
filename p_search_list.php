@@ -92,6 +92,9 @@ if ($site_code=="" && $res_date=="" && $vac_code=="")
 $dbh=null;
 $rec=$stmt->fetchAll();
 
+$csv = 'マイナンバー,接種会場コード,予約日,ワクチンコード';
+$csv .= "\n";
+
 if (isset($rec[0]['my_num'])==false)
 {
     print '該当するデータはありません';
@@ -102,23 +105,17 @@ if (isset($rec[0]['my_num'])==false)
         print '接種会場コード：'.$value['site_code'].'　';
         print '予約日：'.$value['res_date'].'　';
         print 'ワクチンコード：'.$value['vac_code'].'<br>';
+
+        $csv .= $value['my_num'];
+        $csv .= ',';
+        $csv .= $value['site_code'];
+        $csv .= ',';
+        $csv .= $value['res_date'];
+        $csv .= ',';
+        $csv .= $value['vac_code'];
+        $csv .= "\n";
     }
 }
-
-$csv = 'マイナンバー,接種会場コード,予約日,ワクチンコード';
-$csv .= "\n";
-foreach($rec as $key=>$value)
-{
-    $csv .= $value['my_num'];
-    $csv .= ',';
-    $csv .= $value['site_code'];
-    $csv .= ',';
-    $csv .= $value['res_date'];
-    $csv .= ',';
-    $csv .= $value['vac_code'];
-    $csv .= "\n";
-}
-
 
 }
 # エラーが発生した場合の処理

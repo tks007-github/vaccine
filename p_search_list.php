@@ -42,8 +42,12 @@ $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
 # 検索するSQL文の生成
 $sql='
-      SELECT my_num, site_code, res_date, vac_code
-      FROM Reservation
+      SELECT R.my_num, TIMESTAMPDIFF(YEAR, C.birth, CURDATE()) AS age, 
+      S.site_name, R.res_date, V.vac_name
+      FROM Reservation AS R
+      JOIN Citizen AS C USING(my_num)
+      JOIN Site AS S USING(site_code)
+      JOIN Vaccine AS V USING(vac_code)
       ';
 $flg = true;
 if ($site_code!="")
@@ -92,7 +96,7 @@ if ($site_code=="" && $res_date=="" && $vac_code=="")
 $dbh=null;
 $rec=$stmt->fetchAll();
 
-$csv = 'マイナンバー,接種会場コード,予約日,ワクチンコード';
+$csv = 'マイナンバー,接種会場名,予約日,ワクチン種別';
 $csv .= "\n";
 
 if (isset($rec[0]['my_num'])==false)
@@ -102,17 +106,20 @@ if (isset($rec[0]['my_num'])==false)
     foreach($rec as $key=>$value)
     {
         print 'マイナンバー：'.$value['my_num'].'　';
-        print '接種会場コード：'.$value['site_code'].'　';
+        print '年齢：'.$value['age'].'　';
+        print '接種会場名：'.$value['site_name'].'　';
         print '予約日：'.$value['res_date'].'　';
-        print 'ワクチンコード：'.$value['vac_code'].'<br>';
+        print 'ワクチン種別：'.$value['vac_name'].'<br>';
 
         $csv .= $value['my_num'];
         $csv .= ',';
-        $csv .= $value['site_code'];
+        $csv .= $value['age'];
+        $csv .= ',';
+        $csv .= $value['site_name'];
         $csv .= ',';
         $csv .= $value['res_date'];
         $csv .= ',';
-        $csv .= $value['vac_code'];
+        $csv .= $value['vac_name'];
         $csv .= "\n";
     }
 }

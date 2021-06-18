@@ -34,11 +34,12 @@ else	# セッション変数loginに値が格納されている場合(ログイ�
 	<option value="S0003">つくば病院</option>
 </select>
 日にち
-<select name="res_date">
+<input type="date" name="res_date"></input>
+<!-- <select name="res_date">
     <option value=""></option>
 	<option value="2021-06-02">6月2日</option>
 	<option value="2021-06-09">6月9日</option>
-</select>
+</select> -->
 ワクチン種別
 <select name="vac_code">
     <option value=""></option>

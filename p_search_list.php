@@ -121,7 +121,6 @@ if (isset($rec[0]['my_num'])==false)
 # エラーが発生した場合の処理
 catch(Exception $e)
 {
-    var_dump($e);
       print 'ただいま障害により大変ご迷惑をお掛けしております。';
       exit();
 }

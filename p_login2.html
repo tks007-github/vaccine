@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ワクチン予約</title>
+    <script>
+        function func_check() {
+            let flg = true;
+            const result_id = func_id_check();
+            const result_pass = func_pass_check();
+            flg = flg && result_id;
+            flg = flg && result_pass;
+
+            return flg;
+        }
+
+        function func_id_check() {
+            const id = document.getElementById('input_id').value;
+            if (id === '') {
+                window.alert('IDを入力してください');
+                return false;
+            } else {
+                return true; 
+            }
+        }
+
+        function func_pass_check() {
+            const pass = document.getElementById('input_pass').value;
+            if (pass === '') {
+                window.alert('パスワードを入力してください');
+                return false;
+            } else {
+                return true; 
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <h1>ワクチン管理(自治体用)</h1>
+    <h2>ログイン</h2>
+
+    <form method="post"action="p_login_check.php" onsubmit="return func_check()">
+        ID<br>
+        <input type="text"name="id"id="input_id"><br>
+        パスワード<br>
+        <input type="password"name="pass"id="input_pass"><br>
+        <br>
+        <input type="submit"value="ログイン">
+    </form>
+</body>
+</html>

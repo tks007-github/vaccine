@@ -59,3 +59,7 @@ SELECT R.res_date AS 接種日, R.res_time AS 接種時間, R.my_num AS マイ�
     JOIN Vaccine AS V USING(vac_code)
     WHERE R.res_date = '2021-06-02'
     AND R.site_code = 'S0002';
+
+
+SELECT res_time, COUNT(*) FROM Reservation
+    WHERE res_date = '2021-06-02' AND res_time = '11:00:00';

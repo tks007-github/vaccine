@@ -119,6 +119,7 @@ catch(Exception $e)
                   <h1 class="count-sum"><?php print $rec[0][0]; ?>人</h1>
                   <br><br><br><br><br>
                   <h4><a href="p_search.php">詳細検索</a></h4><br>
+                  <h4><a href="p_graph.php">グラフ</a></h4>
             </div>
 
       </main><!-- /.container -->

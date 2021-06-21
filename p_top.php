@@ -29,7 +29,7 @@ $stmt->execute();
 
 # Vaccine_Reservationデータベースから切断する
 $dbh=null;
-$rec=$stmt->fetchAll();
+$rec=$stmt->fetch(PDO::FETCH_ASSOC);
 }
 # エラーが発生した場合の処理
 catch(Exception $e)
@@ -114,9 +114,9 @@ catch(Exception $e)
                   <h1>ワクチン予約管理</h1>
                   <h2>～自治体用～</h2>
                   <br><br><br>
-                  <h1 class="count-sum-color"><?php print $rec[0][1]; ?>現在</h1>
+                  <h1 class="count-sum-color"><?php print $rec["CURDATE()"]; ?>現在</h1>
                   <h1 class="count-sum-color">累計ワクチン接種者数</h1><br>
-                  <h1 class="count-sum"><?php print $rec[0][0]; ?>人</h1>
+                  <h1 class="count-sum"><?php print $rec["COUNT(*)"]; ?>人</h1>
                   <br><br><br><br><br>
                   <h4><a href="p_search.php">詳細検索</a></h4><br>
                   <h4><a href="p_graph.php">グラフ</a></h4>

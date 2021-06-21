@@ -215,22 +215,30 @@ catch (Exception $e) {
                 <?php
                 if (isset($_SESSION['login']) == true) {
                     print $_SESSION['pre_name'];      # セッション変数pre_nameを表示
-                    print 'でログイン中<br>';
-                    print '<br>';
+                    print 'でログイン中';
                 }
                 ?>
             </div>
-            <input type="button" onclick="location.href='p_login.html'" value="ログアウト">
-        </div>
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" aria-current="page" href="p_top.php">ホーム</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" aria-current="page" href="p_top.php">戻る</a>
+                    </li>
+                </ul>
+            </div>
+                    <input type="button" onclick="location.href='p_login.html'" value="ログアウト">
         </div>
     </nav>
 
     <main class="container">
 
         <div class="starter-template text-center py-5 px-3">
-        <h1>グラフ</h1>
-        <h3>～１週間のワクチン接種者数推移～</h3>
-        <br>
+            <h1>グラフ</h1>
+            <h3>～１週間のワクチン接種者数推移～</h3>
+            <br>
 
             <canvas id="canvas"></canvas>
             <script>

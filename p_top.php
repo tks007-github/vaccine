@@ -9,32 +9,30 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
 }
 
 # エラー対策を行う(例外処理)
-try
-{
-# Vaccine_Reservationデータベースに接続する
-$dsn='mysql:dbname=Vaccine_Reservation;host=localhost;charset=utf8';
-$user='root';
-$password='root';
-$dbh=new PDO($dsn,$user,$password);
-$dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+try {
+      # Vaccine_Reservationデータベースに接続する
+      $dsn = 'mysql:dbname=Vaccine_Reservation;host=localhost;charset=utf8';
+      $user = 'root';
+      $password = 'root';
+      $dbh = new PDO($dsn, $user, $password);
+      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-# 検索するSQL文の生成
-$sql='
+      # 検索するSQL文の生成
+      $sql = '
       SELECT COUNT(*), CURDATE() FROM Reservation
       WHERE res_date <= CURDATE()
       ';
 
-$stmt=$dbh->prepare($sql);
-$stmt->execute();
+      $stmt = $dbh->prepare($sql);
+      $stmt->execute();
 
-# Vaccine_Reservationデータベースから切断する
-$dbh=null;
-$rec=$stmt->fetch(PDO::FETCH_ASSOC);
+      # Vaccine_Reservationデータベースから切断する
+      $dbh = null;
+      $rec = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 # エラーが発生した場合の処理
-catch(Exception $e)
-{
-    var_dump($e);
+catch (Exception $e) {
+      var_dump($e);
       print 'ただいま障害により大変ご迷惑をお掛けしております。';
       exit();
 }
@@ -98,10 +96,19 @@ catch(Exception $e)
                         <?php
                         if (isset($_SESSION['login']) == true) {
                               print $_SESSION['pre_name'];      # セッション変数pre_nameを表示
-                              print 'でログイン中<br>';
-                              print '<br>';
+                              print 'でログイン中';
                         }
                         ?>
+                  </div>
+                  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                              <li class="nav-item active">
+                                    <a class="nav-link" aria-current="page" href="p_top.php">ホーム</a>
+                              </li>
+                              <li class="nav-item active">
+                                    <a class="nav-link" aria-current="page" href="#">戻る</a>
+                              </li>
+                        </ul>
                   </div>
                   <input type="button" onclick="location.href='p_login.html'" value="ログアウト">
             </div>

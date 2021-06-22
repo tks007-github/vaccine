@@ -48,29 +48,20 @@ $sql='
       JOIN Citizen AS C USING(my_num)
       JOIN Site AS S USING(site_code)
       JOIN Vaccine AS V USING(vac_code)
+      WHERE 1
       ';
-$flg = true;
 if ($site_code!="")
 {
-    $sql .= 'WHERE site_code=?';
-    $flg = false;
+    $sql .= 'AND site_code=?';
 }
-if ($res_date!="" && $flg)
-{
-    $sql .= 'WHERE res_date=?';
-    $flg = false;
-} else if ($res_date!="")
+if ($res_date!="")
 {
     $sql .= 'AND res_date=?';
-} else {}
-if ($vac_code!="" && $flg)
-{
-    $sql .= 'WHERE vac_code=?';
-    $flg = false;
-} else if ($vac_code!="")
+}
+if ($vac_code!="")
 {
     $sql .= 'AND vac_code=?';
-} else {}
+}
 $stmt=$dbh->prepare($sql);
 
 if ($site_code=="" && $res_date=="" && $vac_code=="")

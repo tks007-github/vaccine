@@ -106,7 +106,7 @@ catch (Exception $e) {
                         <a class="nav-link" aria-current="page" href="p_top.php">ホーム</a>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" aria-current="page" href="p_top.php">戻る</a>
+                        <a class="nav-link" aria-current="page" href="p_search.php">戻る</a>
                     </li>
                 </ul>
             </div>
@@ -131,7 +131,44 @@ catch (Exception $e) {
                 $res_date = $_POST['res_date'];
                 $vac_code = $_POST['vac_code'];
 
-                print "<h4>接種会場:".$site_code."　日にち:".$res_date."　ワクチン種別:".$vac_code."</h4><br>";
+                switch($site_code)
+                {
+                    case 'S0001':
+                        $site_name = '常総病院';
+                        break;
+                    
+                    case 'S0002':
+                        $site_name = '守谷病院';
+                        break;
+                    
+                    case 'S0003':
+                        $site_name = 'つくば病院';
+                        break;
+
+                    default:
+                        $site_name = '指定なし';
+                }
+
+                switch($vac_code)
+                {
+                    case 'V01':
+                        $vac_name = 'ファイザー';
+                        break;
+                    
+                    case 'V02':
+                        $vac_name = 'モデルナ';
+                        break;
+
+                    default:
+                        $vac_name = '指定なし';
+                }
+
+                if($res_date != ''){
+                    print "<h4>接種会場：".$site_name."　日にち：".$res_date."　ワクチン種別：".$vac_name."</h4><br><br>";
+                } else {
+                    print "<h4>接種会場：".$site_name."　日にち：指定なし　ワクチン種別：".$vac_name."</h4><br><br>";
+                }
+                
 
                 # Vaccine_Reservationデータベースに接続する
                 $dsn = 'mysql:dbname=Vaccine_Reservation;host=localhost;charset=utf8';
@@ -184,14 +221,19 @@ catch (Exception $e) {
                 $csv .= "\n";
 
                 if (isset($rec[0]['my_num']) == false) {
-                    print '該当するデータはありません';
+                    print '<h5>該当するデータはありません</h5>';
                 } else {
+                    
+                    print '<table align="center" width="600">';
+                    print '<tr><th><h5>マイナンバー</h5></th> <th><h5>年齢</h5></th> <th><h5>接種会場名</h5></th> <th><h5>予約日</h3></th> <th><h5>ワクチン種別</h5></th></tr>';
                     foreach ($rec as $key => $value) {
-                        print 'マイナンバー：' . $value['my_num'] . '　';
-                        print '年齢：' . $value['age'] . '　';
-                        print '接種会場名：' . $value['site_name'] . '　';
-                        print '予約日：' . $value['res_date'] . '　';
-                        print 'ワクチン種別：' . $value['vac_name'] . '<br>';
+                        print '<tr>';
+                        print '<th>' . $value['my_num'] . '</th>';
+                        print '<th>' . $value['age'] . '</th>';
+                        print '<th>' . $value['site_name'] . '</th>';
+                        print '<th>' . $value['res_date'] . '</th>';
+                        print '<th>' . $value['vac_name'] . '</th>';
+                        print '</tr>';
 
                         $csv .= $value['my_num'];
                         $csv .= ',';
@@ -204,6 +246,7 @@ catch (Exception $e) {
                         $csv .= $value['vac_name'];
                         $csv .= "\n";
                     }
+                    print '</table>';
                 }
             }
             # エラーが発生した場合の処理
@@ -213,13 +256,16 @@ catch (Exception $e) {
                 exit();
             }
 
+            if (isset($rec[0]['my_num']) == true) {
+                print '
+                <br>
+                <form method="post" action="p_search_list_download.php">
+                    <input type="hidden" name="csv" value="<?php print $csv; ?>">
+                    <h5><input type="submit" value="CSVファイルをダウンロード"></h5>
+                </form>
+                ';
+            }
             ?>
-
-            <br>
-            <form method="post" action="p_search_list_download.php">
-                <input type="hidden" name="csv" value="<?php print $csv; ?>">
-                <h5><input type="submit" value="CSVファイルをダウンロード"></h5>
-            </form>
 
         </div>
 

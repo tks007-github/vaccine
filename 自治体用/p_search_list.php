@@ -48,7 +48,7 @@ catch (Exception $e) {
     <meta name="description" content="">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
     <meta name="generator" content="Hugo 0.79.0">
-    <title>Starter Template for Bootstrap · Bootstrap v5.0</title>
+    <title>ワクチン予約</title>
 
     <link rel="canonical" href="https://getbootstrap.jp/docs/5.0/examples/starter-template/">
 
@@ -127,7 +127,7 @@ catch (Exception $e) {
             try {
                 # p_search.phpから渡された値を$_POSTで受け取る
 
-                if($_SESSION['site_code'] == "" && $_SESSION['res_date'] == "" && $_SESSION['vac_code'] == "")
+                if(isset($_POST['site_code']) == FALSE && isset($_POST['res_date']) == FALSE && isset($_POST['vac_code']) == FALSE)
                 {
                     $_SESSION['site_code'] = $_POST['site_code'];
                     $_SESSION['res_date'] = $_POST['res_date'];

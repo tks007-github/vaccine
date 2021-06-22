@@ -14,18 +14,29 @@ session_start();
 
 //try
 {
-
+$r_my_num=$_SESSION['my_num'];
 $dsn='mysql:dbname=vaccine_reservation;host=localhost;charset=utf8';
 $user='root';
 $password='root';
 $dbh=new PDO($dsn,$user,$password);
 $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-$sql='SELECT my_num,kana,tel,mail FROM citizen_add WHERE 1';
+$sql='SELECT my_num,kana,tel,mail FROM citizen_add WHERE my_num= ?';
+$sql1 = 'SELECT site_code,res_date FROM reservation WHERE my_num=?';
+//$sql='SELECT my_num as C.kana,C.tel,C.mail,R.site_code,R.res_time
+	//FROM reservation as V 
+//	FROM citizen_add as C 
+//	JOIN reservation as R using(my_num)
+//	WHERE my_num = ?';
 $stmt=$dbh->prepare($sql);
-$stmt->execute();
-
+$data[]=$r_my_num; 
+$stmt->execute($data);
 $dbh=null;
+//$sql='SELECT my_num,site_code,res_date FROM reservation WHERE my_num= ?';
+//$stmt=$dbh->prepare($sql);
+//$data[]=$r_my_num; 
+//$stmt->execute($data);
+//$dbh=null;
 
 print'予約情報一覧<br /><br />';
 
@@ -43,8 +54,9 @@ while(true)
 	print'<br />';
 	print'mail'.$rec['mail'];
 	print'<br />';
-	print'会場<br />';
-	print'日時<br />';
+	print'会場'.$rec['site_code'];
+	print'<br />';
+	print'日時'.$rec['res_date'];
 
 	print'時間を守って来訪をお願いいたします<br />';
 }

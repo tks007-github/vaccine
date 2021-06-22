@@ -42,7 +42,7 @@ $rec=$stmt->fetch(PDO::FETCH_ASSOC);
 
 if($rec==false)	# データベースからの問合せ結果がない場合
 {
-	header('Location:P_ng.html');
+	header('Location:c_ng.html');
 }
 else	# データベースからの問合せがあった場合
 {

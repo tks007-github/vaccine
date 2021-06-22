@@ -98,6 +98,11 @@ catch (Exception $e) {
                     print $_SESSION['pre_name'];      # セッション変数pre_nameを表示
                     print 'でログイン中';
                 }
+                # セッション変数の初期化(検索条件)
+                $_SESSION['site_code'] = '';
+                $_SESSION['res_date'] = '';
+                $_SESSION['vac_code'] = '';
+
                 ?>
             </div>
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">

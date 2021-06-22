@@ -127,9 +127,15 @@ catch (Exception $e) {
             try {
                 # p_search.phpから渡された値を$_POSTで受け取る
 
-                $site_code = $_POST['site_code'];
-                $res_date = $_POST['res_date'];
-                $vac_code = $_POST['vac_code'];
+                if($_SESSION['site_code'] == "" && $_SESSION['res_date'] == "" && $_SESSION['vac_code'] == "")
+                {
+                    $_SESSION['site_code'] = $_POST['site_code'];
+                    $_SESSION['res_date'] = $_POST['res_date'];
+                    $_SESSION['vac_code'] = $_POST['vac_code'];
+                }
+                $site_code = $_SESSION['site_code'];
+                $res_date = $_SESSION['res_date'];
+                $vac_code = $_SESSION['vac_code'];
 
                 switch($site_code)
                 {
@@ -217,7 +223,7 @@ catch (Exception $e) {
                 $dbh = null;
                 $rec = $stmt->fetchAll();
 
-                $csv = 'マイナンバー,接種会場名,予約日,ワクチン種別';
+                $csv = 'マイナンバー,年齢,接種会場名,予約日,ワクチン種別';
                 $csv .= "\n";
 
                 if (isset($rec[0]['my_num']) == false) {
@@ -260,7 +266,7 @@ catch (Exception $e) {
                 print '
                 <br>
                 <form method="post" action="p_search_list_download.php">
-                    <input type="hidden" name="csv" value="<?php print $csv; ?>">
+                    <input type="hidden" name="csv" value="'.$csv.'">
                     <h5><input type="submit" value="CSVファイルをダウンロード"></h5>
                 </form>
                 ';

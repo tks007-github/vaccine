@@ -8,35 +8,6 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
     exit();
 }
 
-# エラー対策を行う(例外処理)
-try {
-    # Vaccine_Reservationデータベースに接続する
-    $dsn = 'mysql:dbname=Vaccine_Reservation;host=localhost;charset=utf8';
-    $user = 'root';
-    $password = 'root';
-    $dbh = new PDO($dsn, $user, $password);
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    # 検索するSQL文の生成
-    $sql = '
-      SELECT COUNT(*), CURDATE() FROM Reservation
-      WHERE res_date <= CURDATE()
-      ';
-
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute();
-
-    # Vaccine_Reservationデータベースから切断する
-    $dbh = null;
-    $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-}
-# エラーが発生した場合の処理
-catch (Exception $e) {
-    var_dump($e);
-    print 'ただいま障害により大変ご迷惑をお掛けしております。';
-    exit();
-}
-
 ?>
 
 <!doctype html>

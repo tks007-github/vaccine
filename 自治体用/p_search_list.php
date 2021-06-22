@@ -8,35 +8,6 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
     exit();
 }
 
-# エラー対策を行う(例外処理)
-try {
-    # Vaccine_Reservationデータベースに接続する
-    $dsn = 'mysql:dbname=Vaccine_Reservation;host=localhost;charset=utf8';
-    $user = 'root';
-    $password = 'root';
-    $dbh = new PDO($dsn, $user, $password);
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    # 検索するSQL文の生成
-    $sql = '
-      SELECT COUNT(*), CURDATE() FROM Reservation
-      WHERE res_date <= CURDATE()
-      ';
-
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute();
-
-    # Vaccine_Reservationデータベースから切断する
-    $dbh = null;
-    $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-}
-# エラーが発生した場合の処理
-catch (Exception $e) {
-    var_dump($e);
-    print 'ただいま障害により大変ご迷惑をお掛けしております。';
-    exit();
-}
-
 ?>
 
 <!doctype html>
@@ -127,26 +98,28 @@ catch (Exception $e) {
             try {
                 # p_search.phpから渡された値を$_POSTで受け取る
 
-                if(isset($_POST['site_code']) == FALSE && isset($_POST['res_date']) == FALSE && isset($_POST['vac_code']) == FALSE)
-                {
+                if (isset($_POST['site_code']) == false && isset($_POST['res_date']) == false && isset($_POST['vac_code']) == false) {
+                    $site_code = $_SESSION['site_code'];
+                    $res_date = $_SESSION['res_date'];
+                    $vac_code = $_SESSION['vac_code'];
+                } else {
                     $_SESSION['site_code'] = $_POST['site_code'];
                     $_SESSION['res_date'] = $_POST['res_date'];
                     $_SESSION['vac_code'] = $_POST['vac_code'];
+                    $site_code = $_SESSION['site_code'];
+                    $res_date = $_SESSION['res_date'];
+                    $vac_code = $_SESSION['vac_code'];
                 }
-                $site_code = $_SESSION['site_code'];
-                $res_date = $_SESSION['res_date'];
-                $vac_code = $_SESSION['vac_code'];
 
-                switch($site_code)
-                {
+                switch ($site_code) {
                     case 'S0001':
                         $site_name = '常総病院';
                         break;
-                    
+
                     case 'S0002':
                         $site_name = '守谷病院';
                         break;
-                    
+
                     case 'S0003':
                         $site_name = 'つくば病院';
                         break;
@@ -155,12 +128,11 @@ catch (Exception $e) {
                         $site_name = '指定なし';
                 }
 
-                switch($vac_code)
-                {
+                switch ($vac_code) {
                     case 'V01':
                         $vac_name = 'ファイザー';
                         break;
-                    
+
                     case 'V02':
                         $vac_name = 'モデルナ';
                         break;
@@ -169,12 +141,12 @@ catch (Exception $e) {
                         $vac_name = '指定なし';
                 }
 
-                if($res_date != ''){
-                    print "<h4>接種会場：".$site_name."　日にち：".$res_date."　ワクチン種別：".$vac_name."</h4><br><br>";
+                if ($res_date != '') {
+                    print "<h4>接種会場：" . $site_name . "　日にち：" . $res_date . "　ワクチン種別：" . $vac_name . "</h4><br><br>";
                 } else {
-                    print "<h4>接種会場：".$site_name."　日にち：指定なし　ワクチン種別：".$vac_name."</h4><br><br>";
+                    print "<h4>接種会場：" . $site_name . "　日にち：指定なし　ワクチン種別：" . $vac_name . "</h4><br><br>";
                 }
-                
+
 
                 # Vaccine_Reservationデータベースに接続する
                 $dsn = 'mysql:dbname=Vaccine_Reservation;host=localhost;charset=utf8';
@@ -229,7 +201,7 @@ catch (Exception $e) {
                 if (isset($rec[0]['my_num']) == false) {
                     print '<h5>該当するデータはありません</h5>';
                 } else {
-                    
+
                     print '<table align="center" width="600">';
                     print '<tr><th><h5>マイナンバー</h5></th> <th><h5>年齢</h5></th> <th><h5>接種会場名</h5></th> <th><h5>予約日</h3></th> <th><h5>ワクチン種別</h5></th></tr>';
                     foreach ($rec as $key => $value) {
@@ -266,7 +238,7 @@ catch (Exception $e) {
                 print '
                 <br>
                 <form method="post" action="p_search_list_download.php">
-                    <input type="hidden" name="csv" value="'.$csv.'">
+                    <input type="hidden" name="csv" value="' . $csv . '">
                     <h5><input type="submit" value="CSVファイルをダウンロード"></h5>
                 </form>
                 ';

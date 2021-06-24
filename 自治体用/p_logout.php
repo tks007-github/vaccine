@@ -16,8 +16,9 @@ session_destroy();	# セッションを破棄する
 </head>
 <body>
 
-ログアウトしました。<br />
-<br />
+<h1>ログアウトしました。</h1>
+<br>
+<br>
 <a href="p_login.html">ログイン画面へ</a>
 
 </body>

@@ -1,0 +1,12 @@
+body {
+    padding-top: 5rem;
+  }
+
+.count-sum-color {
+    color: rgb(248, 2, 2);
+}
+
+.count-sum {
+    color: rgb(248, 2, 2);
+    font-size: 100px;
+}

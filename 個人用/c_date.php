@@ -59,9 +59,10 @@
     $mail = $_POST['mail'];
     $site_code = $_POST['site_code'];
 
+    // date_default_timezone_set(‘Asia/Tokyo’);
 
     $today = date("Y-m-d",strtotime("1 day"));//予約しようとする日付けに一日加算
-    //print $today;
+    // print $today;
 
     $dsn = 'mysql:dbname=vaccine_reservation; host = localhost; charset = utf8';
     $user = 'root';
@@ -74,15 +75,16 @@
     $stmt = $dbh -> prepare($sql);
     $data[]=$site_code ;
     $stmt -> execute($data);
-    $site_name = $stmt-> fetch(PDO::FETCH_ASSOC);
+    $rec = $stmt-> fetch(PDO::FETCH_ASSOC);
+    $dbh=null;
 
 
     $_SESSION['name']=$name;
     $_SESSION['mail']=$mail;
     $_SESSION['tel']=$tel;
     $_SESSION['site_code']=$site_code;
-    $_SESSION['site_name']=$site_name['site_name'];
-
+    $_SESSION['site_name']=$rec['site_name'];
+    $site_name = $_SESSION['site_name'];
 
 ?>
 

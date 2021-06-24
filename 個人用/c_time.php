@@ -90,7 +90,7 @@
         <div class="starter-template text-center py-5 px-3">
             <h1>時間を選択してください</h1>
             <br><br><br><br>
-            <h1>会場名&nbsp;：<?php print $site_name['site_name']; ?></h1>
+            <h1>会場名&nbsp;：<?php print $site_name; ?></h1>
             <br><br>
             <?php
 

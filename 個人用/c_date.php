@@ -59,8 +59,7 @@
     $mail = $_POST['mail'];
     $site_code = $_POST['site_code'];
 
-    // date_default_timezone_set(‘Asia/Tokyo’);
-
+    date_default_timezone_set('Asia/Tokyo');
     $today = date("Y-m-d",strtotime("1 day"));//予約しようとする日付けに一日加算
     // print $today;
 

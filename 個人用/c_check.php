@@ -101,19 +101,24 @@
             <h3>
                 名前&nbsp;:<?php print $name; ?>
             </h3>
+            <br>
             <h3>
                 TEL&nbsp;:<?php print $tel; ?>
             </h3>
+            <br>
             <h3>
                 mail&nbsp;:<?php print $mail; ?>
             </h3>
+            <br>
             <h3>
                 会場名&nbsp;：<?php print $site_name; ?>
             </h3>
+            <br>
             <h3>
-                日時&nbsp;:&emsp;<?php echo $date . "&emsp;" . $time;  ?>
+                日時&nbsp;:&emsp;<?php print $date . "&emsp;" . $time;  ?>
             </h3>
 
+            <br><br>
             <h4>この内容で予約してよろしいですか</h4>
             <br><br>
             <form action="c_done.php" method="post">

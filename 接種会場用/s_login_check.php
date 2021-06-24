@@ -38,8 +38,8 @@ $site_code = $rec['site_code'];
 
 if($rec==false)		# データベースからの問い合わせ結果がない場合
 {
-      print '接種会場ログインIDか接種会場ログインパスワードが間違っています。<br>';
-      print '<a href="s_login.html">戻る</a>';
+      header('Location:s_login_ng.php');		
+      exit();
 }
 else			      # データベースからの問い合わせ結果があった場合
 {

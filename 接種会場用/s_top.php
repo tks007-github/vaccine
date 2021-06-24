@@ -21,11 +21,12 @@ $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 # 検索するSQL文の生成
 $sql='
       SELECT COUNT(*), CURDATE() FROM Reservation
-      WHERE res_date <= CURDATE()
+      WHERE site_code = ? AND res_date = CURDATE()
       ';
 
 $stmt=$dbh->prepare($sql);
-$stmt->execute();
+$data[]=$_SESSION['site_code'];
+$stmt->execute($data);
 
 # Vaccine_Reservationデータベースから切断する
 $dbh=null;
@@ -113,12 +114,11 @@ catch(Exception $e)
                   <h1>ワクチン予約管理</h1>
                   <h2>～接種会場用～</h2>
                   <br><br><br>
-                  <h1 class="count-sum-color"><?php print $rec[0][1]; ?>現在</h1>
-                  <h1 class="count-sum-color">累計ワクチン接種者数</h1><br>
+                  <h1 class="count-sum-color">本日(<?php print $rec[0][1]; ?>)</h1>
+                  <h1 class="count-sum-color">ワクチン接種予定者数</h1><br>
                   <h1 class="count-sum"><?php print $rec[0][0]; ?>人</h1>
                   <br><br><br><br><br>
                   <h4><a href="s_search.php">詳細検索</a></h4><br>
-                  <h4><a href="s_graph.html">グラフ</a></h4>
             </div>
 
       </main><!-- /.container -->

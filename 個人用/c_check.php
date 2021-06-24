@@ -1,75 +1,138 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>c_check</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.79.0">
+    <title>ワクチン予約</title>
+
+    <link rel="canonical" href="https://getbootstrap.jp/docs/5.0/examples/starter-template/">
+
+
+
+    <!-- Bootstrap core CSS -->
+    <link href=https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
+    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
+    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon-16x16.png" sizes="16x16" type="image/png">
+    <link rel="manifest" href="/docs/5.0/assets/img/favicons/manifest.json">
+    <link rel="mask-icon" href="/docs/5.0/assets/img/favicons/safari-pinned-tab.svg" color="#7952b3">
+    <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico">
+    <meta name="theme-color" content="#7952b3">
+
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link href="starter-template.css" rel="stylesheet">
 </head>
+
 <body>
 
     <?php
 
     session_start();
     session_regenerate_id(true);
-    if(isset($_session['login'])==false)
+    if (isset($_session['login']) == false)
 
-    $name = $_SESSION['name'];
-    $mail = $_SESSION['mail'];
-    $tel = $_SESSION['tel'];
-    $site_name = $_SESSION['site_name'];
+        $name = $_SESSION['name'];
+        $mail = $_SESSION['mail'];
+        $tel = $_SESSION['tel'];
+        $site_name = $_SESSION['site_name'];
 
 
-        /*$name= $_POST["name"];
+    /*$name= $_POST["name"];
         $tel = $_POST["tel"];
         $site = $_POST["site"];//フリガナ,tel,mail,会場,マイナンバー受け取る
         $mynum = $_POST["mynum"];
         */
     $time = $_POST["r_time"];
     $date = $_POST["date"];
+
     ?>
 
-    <p> 
-        名前&nbsp;:<?php print $name; ?>
-    </p>
-        TEL&nbsp;:<?php print $tel; ?>
-    <p>
-        mail&nbsp;:<?php print $mail;?>
-    </p>
-    <p>
-        会場名&nbsp;：<?php print $site_name ;?>
-    </p>
-    <p>
-        日時&nbsp;:&emsp;<?php echo $date."&emsp;".$time;  ?>
-    </p>
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-brand">
 
-    <p>
-    </p>
-    <p>
-        この内容で予約してよろしいですか?
-    </p>
-    <form action = "c_done.php" method = "post">
-        
+            </div>
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" aria-current="page" href="c_top.html">
+                            <font color="white">←戻る</font>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto mb-2 mb-md-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" aria-current="page" href="c_top.html">
+                            <font color="white">ホーム</font>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-            <input type = "hidden" name ="date" value = "<?php echo $date; ?>">
-            <input type = "hidden" name ="time" value = "<?php echo $time; ?>">
-      <!--  <input type = "hidden" name ="name" value = "<?php echo $name; ?>">
-            <input type = "hidden" name ="tel" value = "<?php echo $tel; ?>">
-            <input type = "hidden" name ="site" value = "<?php echo $site; ?>">
-            <input type = "hidden" name ="mynum" value = "<?php echo $mynum; ?>">
+    <main class="container">
 
-     --><p>
-            <input type = "button" onclick = "history.back()" value = "戻る">
-            <input type = "submit" value = "次へ" >
-        </p>
-            
-    </form>
- 
+        <div class="starter-template text-center py-5 px-3">
+            <h3>
+                名前&nbsp;:<?php print $name; ?>
+            </h3>
+            <h3>
+                TEL&nbsp;:<?php print $tel; ?>
+            </h3>
+            <h3>
+                mail&nbsp;:<?php print $mail; ?>
+            </h3>
+            <h3>
+                会場名&nbsp;：<?php print $site_name; ?>
+            </h3>
+            <h3>
+                日時&nbsp;:&emsp;<?php echo $date . "&emsp;" . $time;  ?>
+            </h3>
 
-    
+            <h4>この内容で予約してよろしいですか</h4>
+            <br><br>
+            <form action="c_done.php" method="post">
 
 
-        
-    
+                <input type="hidden" name="date" value="<?php echo $date; ?>">
+                <input type="hidden" name="time" value="<?php echo $time; ?>">
+
+                <h3><input type="submit" value="次へ"></h3>
+
+            </form>
+        </div>
+
+    </main><!-- /.container -->
+
+
+    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+
 </body>
+
 </html>

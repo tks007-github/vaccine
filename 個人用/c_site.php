@@ -49,20 +49,40 @@
 
 <body>
 
+    <?php
+    session_start();
+    session_regenerate_id(true);
+    if (isset($_session['login']) == false)
+
+        $name = $_POST['name'];
+    $tel = $_POST['tel'];
+    $mail = $_POST['mail'];
+
+    /* print $name;
+        print $tel;
+        print $mail;
+        */
+
+    ?>
+
     <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
         <div class="container-fluid">
             <div class="navbar-brand">
-                
+
             </div>
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item active">
-                        <a class="nav-link" aria-current="page" href="c_top.html"><font color="white">←戻る</font></a>
+                        <a class="nav-link" aria-current="page" href="c_top.html">
+                            <font color="white">←戻る</font>
+                        </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-md-0">
                     <li class="nav-item active">
-                        <a class="nav-link" aria-current="page" href="c_top.html"><font color="white">ホーム</font></a>
+                        <a class="nav-link" aria-current="page" href="c_top.html">
+                            <font color="white">ホーム</font>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -72,17 +92,21 @@
     <main class="container">
 
         <div class="starter-template text-center py-5 px-3">
-            <h1>個人認証の為、以下を入力してください</h1>
-            <br><br>
-            <h3><font color="red">入力に誤りがあります</font></h3>
-            <br>
-            <form method="post" action="c_login_check.php">
-                <h1>マイナンバー</h1>
-                <h5><input type="text" name="my_num"  placeholder="入力必須"></h5>
+            <h1>希望する会場を選択してください</h1>
+            <br><br><br><br>
+            <form method="post" action="c_date.php">
+                <h1>接種会場</h1>
+                <h5>
+                    <select name="site_code">
+                        <option value="S0001">常総病院</option>
+                        <option value="S0002">守谷病院</option>
+                        <option value="S0003">つくば病院</option><br>
+                    </select>
+                </h5>
                 <br><br>
-                <h1>生年月日</h1>
-                <h5><input type="date" name="birth" placeholder="入力必須"></h5>
-                <br><br>
+                <input type="hidden" value=<?php print $name; ?> name="name">
+                <input type="hidden" value=<?php print $tel; ?> name="tel">
+                <input type="hidden" value=<?php print $mail; ?> name="mail">
                 <br><br>
                 <h3><input type="submit" value="次へ"></h3>
             </form>

@@ -98,7 +98,7 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
         <div class="starter-template text-center py-5 px-3">
             <h1>ワクチン接種予約状況の検索</h1>
             <br><br><br><br>
-            <form method="post" action="p_search_list.php">
+            <form method="post" action="s_search_list.php">
                 <h1>予約日</h1>
                 <h5><input type="date" name="res_date"></input></h5>
                 <br><br>

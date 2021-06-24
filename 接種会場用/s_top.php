@@ -9,33 +9,31 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
 }
 
 # エラー対策を行う(例外処理)
-try
-{
-# Vaccine_Reservationデータベースに接続する
-$dsn='mysql:dbname=Vaccine_Reservation;host=localhost;charset=utf8';
-$user='root';
-$password='root';
-$dbh=new PDO($dsn,$user,$password);
-$dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+try {
+      # Vaccine_Reservationデータベースに接続する
+      $dsn = 'mysql:dbname=Vaccine_Reservation;host=localhost;charset=utf8';
+      $user = 'root';
+      $password = 'root';
+      $dbh = new PDO($dsn, $user, $password);
+      $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-# 検索するSQL文の生成
-$sql='
+      # 検索するSQL文の生成
+      $sql = '
       SELECT COUNT(*), CURDATE() FROM Reservation
       WHERE site_code = ? AND res_date = CURDATE()
       ';
 
-$stmt=$dbh->prepare($sql);
-$data[]=$_SESSION['site_code'];
-$stmt->execute($data);
+      $stmt = $dbh->prepare($sql);
+      $data[] = $_SESSION['site_code'];
+      $stmt->execute($data);
 
-# Vaccine_Reservationデータベースから切断する
-$dbh=null;
-$rec=$stmt->fetchAll();
+      # Vaccine_Reservationデータベースから切断する
+      $dbh = null;
+      $rec = $stmt->fetchAll();
 }
 # エラーが発生した場合の処理
-catch(Exception $e)
-{
-    var_dump($e);
+catch (Exception $e) {
+      var_dump($e);
       print 'ただいま障害により大変ご迷惑をお掛けしております。';
       exit();
 }
@@ -103,10 +101,20 @@ catch(Exception $e)
                         }
                         ?>
                   </div>
+                  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                              <li class="nav-item active">
+                                    <a class="nav-link" aria-current="page" href="s_top.php">ホーム</a>
+                              </li>
+                              <li class="nav-item active">
+                                    <a class="nav-link" aria-current="page" href="#">戻る</a>
+                              </li>
+                        </ul>
+                  </div>
                   <input type="button" onclick="location.href='s_login.html'" value="ログアウト">
             </div>
             </div>
-       </nav>
+      </nav>
 
       <main class="container">
 
@@ -114,7 +122,7 @@ catch(Exception $e)
                   <h1>ワクチン予約管理</h1>
                   <h2>～接種会場用～</h2>
                   <br><br><br>
-                  <h1 class="count-sum-color">本日(<?php print $rec[0][1]; ?>)</h1>
+                  <h1 class="count-sum-color">本日(<?php print $rec[0][1]; ?>)の</h1>
                   <h1 class="count-sum-color">ワクチン接種予定者数</h1><br>
                   <h1 class="count-sum"><?php print $rec[0][0]; ?>人</h1>
                   <br><br><br><br><br>

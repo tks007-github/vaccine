@@ -229,15 +229,15 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
                 //データを取得（PDO::FETCH_ASSOCで連想配列を返す）
                 $rec = $stmt->fetchAll();
 
-                $csv = '予約日,予約時間,マイナンバー,利用者名,年齢,性別,TEL,メールアドレス,ワクチン種別,接種完了';
+                $csv = '予約日,予約時間,マイナンバー,利用者名,年齢,性別,電話番号,メールアドレス,ワクチン種別,接種完了';
                 $csv .= "\n";
 
                 if (isset($rec[0]['my_num']) == false) {
                     print '<h5>該当するデータはありません</h5>';
                 } else {
 
-                    print '<table align="center" width="600">';
-                    print '<tr><th><h5>予約日</h5></th> <th><h5>予約時間</h5></th> <th><h5>マイナンバー</h5></th> <th><h5>利用者名</h5></th> <th><h5>年齢</h5></th> <th><h5>性別</h5></th> <th><h5>TEL</h5></th> <th><h5>メールアドレス</h5></th> <th><h5>ワクチン種別</h5> <th><h5>接種完了</h5></th></th></tr>';
+                    print '<table align="center" width="1100">';
+                    print '<tr><th><h5>予約日</h5></th> <th><h5>予約時間</h5></th> <th><h5>マイナンバー</h5></th> <th><h5>利用者名</h5></th> <th><h5>年齢</h5></th> <th><h5>性別</h5></th> <th><h5>電話番号</h5></th> <th><h5>メールアドレス</h5></th> <th><h5>ワクチン種別</h5> <th><h5>接種完了</h5></th></th></tr>';
                     foreach ($rec as $key => $value) {
                         print '<tr>';
                         print '<th>' . $value['res_date'] . '</th>';

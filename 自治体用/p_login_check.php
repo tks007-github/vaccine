@@ -36,8 +36,8 @@ $pre_name = $rec['pre_name'];
 
 if($rec==false)		# データベースからの問い合わせ結果がない場合
 {
-      print '自治体ログインIDか自治体ログインパスワードが間違っています。<br>';
-      print '<a href="p_login.html">戻る</a>';
+      header('Location:p_login_ng.php');		
+      exit();
 }
 else			      # データベースからの問い合わせ結果があった場合
 {

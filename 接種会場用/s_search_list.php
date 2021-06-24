@@ -286,7 +286,7 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
             if (isset($rec[0]['my_num']) == true) {
                 print '
                 <br>
-                <form method="post" action="p_search_list_download.php">
+                <form method="post" action="s_search_list_download.php">
                     <input type="hidden" name="csv" value="' . $csv . '">
                     <h5><input type="submit" value="CSVファイルをダウンロード"></h5>
                 </form>

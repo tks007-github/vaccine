@@ -38,7 +38,7 @@ $site_code = $rec['site_code'];
 
 if($rec==false)		# データベースからの問い合わせ結果がない場合
 {
-      header('Location:s_login_ng.php');		
+      header('Location:s_login_ng.html');		
       exit();
 }
 else			      # データベースからの問い合わせ結果があった場合

@@ -79,7 +79,7 @@
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item active">
-                        <a class="nav-link" aria-current="page" href="c_time.html">
+                        <a class="nav-link" aria-current="page" href="c_time.php">
                             <font color="white">←戻る</font>
                         </a>
                     </li>
@@ -99,23 +99,23 @@
 
         <div class="starter-template text-center py-5 px-3">
             <h3>
-                名前&nbsp;:<?php print $name; ?>
+                名前：<?php print $name; ?>
             </h3>
             <br>
             <h3>
-                TEL&nbsp;:<?php print $tel; ?>
+                電話番号：<?php print $tel; ?>
             </h3>
             <br>
             <h3>
-                mail&nbsp;:<?php print $mail; ?>
+                メールアドレス：<?php print $mail; ?>
             </h3>
             <br>
             <h3>
-                会場名&nbsp;：<?php print $site_name; ?>
+                会場：<?php print $site_name; ?>
             </h3>
             <br>
             <h3>
-                日時&nbsp;:&emsp;<?php print $date . "&emsp;" . $time;  ?>
+                日時：<?php print $date . "&emsp;" . $time;  ?>
             </h3>
 
             <br><br>

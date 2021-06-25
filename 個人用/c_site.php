@@ -73,7 +73,7 @@
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item active">
-                        <a class="nav-link" aria-current="page" href="c_add.html">
+                        <a class="nav-link" aria-current="page" href="c_add.php">
                             <font color="white">←戻る</font>
                         </a>
                     </li>

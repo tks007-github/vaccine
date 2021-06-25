@@ -115,7 +115,7 @@
             </h3>
             <br>
             <h3>
-                日時：<?php print $date . "&emsp;" . $time;  ?>
+                日時：<?php print $date . " / " . $time;  ?>
             </h3>
 
             <br><br>

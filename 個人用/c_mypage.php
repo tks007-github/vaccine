@@ -66,11 +66,27 @@
 		$stmt->execute($data);
 		//$dbh=null;
 
-		$sql1 = 'SELECT site_code,res_date FROM reservation WHERE my_num= ?';
+		$sql1 = 'SELECT site_code,res_date,res_time FROM reservation WHERE my_num= ?';
 		$stmt1 = $dbh->prepare($sql1);
 		$data1[] = $r_my_num;
 		$stmt1->execute($data1);
 		$dbh = null;
+
+		switch ($site_code)
+		{
+			case 'S0001':
+				$site_name = '常総病院';
+				break;
+			
+			case 'S0002':
+				$site_name = '守谷病院';
+				break;
+			
+			case 'S0003':
+				$site_name = 'つくば病院';
+				break;
+			
+		}
 
 	?>
 
@@ -113,13 +129,13 @@
 				}
 				print '<h3><input type="radio" name="r_my_num" value="' . $rec['my_num'] . '">';
 				print $rec['kana'] . '様</h3><br />';
-				print '<h3>名前：' . $rec['tel'].'</h3>';
+				print '<h3>電話番号：' . $rec['tel'].'</h3>';
 				print '<br />';
 				print '<h3>メールアドレス：' . $rec['mail'].'</h3>';
 				print '<br />';
-				print '<h3>会場：' . $rec1['site_code'].'</h3>';
+				print '<h3>会場：' . $site_name.'</h3>';
 				print '<br />';
-				print '<h3>日時：' . $rec1['res_date'].'</h3>';
+				print '<h3>日時：' . $rec1['res_date'].' / '.$rec1['res_time'].'</h3>';
 				print '<br />';
 				print '<h4>時間を守って来訪をお願いいたします</h4><br />';
 			}

@@ -64,9 +64,13 @@
 		#データベースにたいしてSQL文で操作する　追加のためにINSERT文を使う
 		$sql = 'DELETE FROM Reservation WHERE my_num=?';
 		$stmt = $dbh->prepare($sql);
-
 		$data[] = $R_my_num;
 		$stmt->execute($data);
+
+		$sql = 'DELETE FROM Citizen_add WHERE my_num=?';
+		$stmt = $dbh->prepare($sql);
+		$stmt->execute($data);
+
 		#データベースから切断
 		$dbh = null;
 	} catch (Exception $e) {
@@ -84,7 +88,7 @@
 			<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 				<ul class="navbar-nav me-auto mb-2 mb-md-0">
 					<li class="nav-item active">
-						<a class="nav-link" aria-current="page" href="c_mypage.php">
+						<a class="nav-link" aria-current="page" href="#">
 							<font color="white">←戻る</font>
 						</a>
 					</li>

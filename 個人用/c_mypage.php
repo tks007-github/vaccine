@@ -72,21 +72,7 @@
 		$stmt1->execute($data1);
 		$dbh = null;
 
-		switch ($site_code)
-		{
-			case 'S0001':
-				$site_name = '常総病院';
-				break;
-			
-			case 'S0002':
-				$site_name = '守谷病院';
-				break;
-			
-			case 'S0003':
-				$site_name = 'つくば病院';
-				break;
-			
-		}
+
 
 	?>
 
@@ -124,18 +110,31 @@
 			while (true) {
 				$rec = $stmt->fetch(PDO::FETCH_ASSOC);
 				$rec1 = $stmt1->fetch(PDO::FETCH_ASSOC);
+				switch ($rec1['site_code']) {
+					case 'S0001':
+						$site_name = '常総病院';
+						break;
+
+					case 'S0002':
+						$site_name = '守谷病院';
+						break;
+
+					case 'S0003':
+						$site_name = 'つくば病院';
+						break;
+				}
 				if ($rec == false) {
 					break;
 				}
 				print '<h3><input type="radio" name="r_my_num" value="' . $rec['my_num'] . '">';
 				print $rec['kana'] . '様</h3><br />';
-				print '<h3>電話番号：' . $rec['tel'].'</h3>';
+				print '<h3>電話番号：' . $rec['tel'] . '</h3>';
 				print '<br />';
-				print '<h3>メールアドレス：' . $rec['mail'].'</h3>';
+				print '<h3>メールアドレス：' . $rec['mail'] . '</h3>';
 				print '<br />';
-				print '<h3>会場：' . $site_name.'</h3>';
+				print '<h3>会場：' . $site_name . '</h3>';
 				print '<br />';
-				print '<h3>日時：' . $rec1['res_date'].' / '.$rec1['res_time'].'</h3>';
+				print '<h3>日時：' . $rec1['res_date'] . ' / ' . $rec1['res_time'] . '</h3>';
 				print '<br />';
 				print '<h4>時間を守って来訪をお願いいたします</h4><br />';
 			}

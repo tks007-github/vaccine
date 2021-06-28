@@ -73,7 +73,7 @@
     $dbh = new PDO($dsn,$user,$password);
     $dbh->setattribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-    $sql = "INSERT INTO reservation (my_num , site_code , res_date , res_time , count , vac_code , vac_sta_code , res_sta_code ) VALUES(?, ? , ? , ? , 3 , 'v01' , 0 , 1)";
+    $sql = "INSERT INTO reservation (my_num , site_code , res_date , res_time , count , vac_code , vac_sta_code , res_sta_code ) VALUES(?, ? , ? , ? , 1 , 'v01' , 0 , 1)";
     $stmt = $dbh -> prepare($sql);
     $data[] = $_SESSION['my_num'];
     $data[] = $_SESSION['site_code'];
@@ -98,6 +98,7 @@
     catch(Exception $e)
 
     {
+       // var_dump($e);
     print'ただいま障害により大変ご迷惑をお掛けいたします。';
     exit();
     }  

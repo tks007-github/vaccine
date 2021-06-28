@@ -43,6 +43,9 @@
     </style>
 
 
+    
+
+
     <!-- Custom styles for this template -->
     <link href="starter-template.css" rel="stylesheet">
 </head>
@@ -89,15 +92,15 @@
         <div class="starter-template text-center py-5 px-3">
             <h1>連絡先を入力してください</h1>
             <br><br><br><br>
-            <form method="post" action="c_site.php">
+            <form method="post" action="c_site.php" id = "submit" onsubmit="return input_check()">
                 <h1>名前(カナ)</h1>
-                <h5><input type="text" name="name" placeholder="入力必須"></h5>
+                <h5><input type="text" name="name" placeholder="入力必須" id= "name"></h5>
                 <br><br>
                 <h1>電話(ハイフン不要)</h1>
-                <h5><input type="text" name="tel" placeholder="入力必須"></h5>
+                <h5><input type="text" name="tel" placeholder="入力必須" id="tel"></h5>
                 <br><br>
                 <h1>メールアドレス</h1>
-                <h5><input type="text" name="mail" placeholder="入力必須"></h5>
+                <h5><input type="text" name="mail" placeholder="入力必須" id="mail"></h5>
                 <br><br>
                 <h3><input type="submit" value="次へ"></h3>
             </form>
@@ -106,7 +109,85 @@
     </main><!-- /.container -->
 
 
-    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <!-- <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script> -->
+    <script>
+
+
+        function input_check(){
+
+            let flg = true;
+
+            const result_name = funck_name_check();
+            const result_tel = funck_tel_check();
+            const result_mail = funck_mail_check();
+
+            flg = flg && result_name;
+            flg = flg && result_tel;
+            flg = flg && result_mail;
+
+            return flg;
+
+        }
+
+        function  funck_name_check(){
+
+            const name = document.querySelector('#name');
+
+          if( name.value ==''){
+
+                window.alert('名前(カナを入力してください)');
+                return false;
+
+            }else if(!name.value.match(/^[ァ-ヶー]*$/)){
+
+                window.alert("名前(カナ)が不正です");
+               return false;
+
+            }else{
+
+               // window.alert('name ok');
+                return true;
+
+            }
+        }
+
+        function  funck_tel_check(){
+
+
+            const tel = document.querySelector('#tel');
+
+            if(!tel.value.match(/^0\d{9,10}$/)){
+                //0から始まる９桁の数字
+                window.alert("電話番号が正しくありません");
+                return false;
+
+            }else{
+
+               // window.alert('tel ok');
+                return true;
+
+            }
+        }
+        
+        function funck_mail_check(){
+
+            const mail= document.querySelector('#mail');
+
+            if(!mail.value.match(/.+@.+\..+/)){
+                //「任意の文字1文字以上」「@」「任意の文字1文字以上」「.」「任意の文字1文字以上」
+                window.alert("メールアドレスが不正です")
+                return false;
+
+            }else{               
+
+               // window.alert('mail ok');
+                return true;
+
+            }
+        }
+
+
+    </script>
 
 
 </body>

@@ -120,7 +120,7 @@
             <form method="post" action="c_time.php">
                 <h1>会場名&nbsp;：<?php print $site_name; ?></h1>
                 <h5>
-                <input type= 'date' name='date' min='<?php print $today ?>'>
+                <input type= 'date' name='date' min='<?php print $today ?>' required>
                 </h5>
                 <br><br>
                 <input type="hidden" value=<?php print $name; ?> name="name">

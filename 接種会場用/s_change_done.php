@@ -72,8 +72,8 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
 
 
                 try {
+                    $vac_sta_code = $_POST['vac_sta_code'];
                     $my_num = $_POST['my_num'];
-                    //var_dump($_POST);
                     //データベースに接続
                     $dsn = 'mysql:dbname=Vaccine_Reservation;host=localhost;charset=utf8';
                     $user = 'root';
@@ -82,32 +82,22 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
                     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
                     $sql = '
-                            SELECT R.site_code, C.name,
-                            R.my_num, TIMESTAMPDIFF(YEAR, C.birth, CURDATE()) AS age,
-                            C.sex, CA.tel, CA.mail,
-                            R.res_date, R.res_time, V.vac_name, VS.vac_sta_value
-                            FROM Reservation AS R
-                            JOIN Citizen AS C USING(my_num)
-                            JOIN Vaccine AS V USING(vac_code)
-                            JOIN Vac_Status AS VS USING(vac_sta_code)
-                            JOIN Citizen_Add AS CA USING(my_num)
-                            WHERE my_num = ?
-                            ';
+        UPDATE Reservation
+        SET vac_sta_code = ?
+        WHERE my_num = ?
+        ';
 
                     $stmt = $dbh->prepare($sql);
+                    $data[] = $vac_sta_code;
                     $data[] = $my_num;
                     //SQL実行
                     $stmt->execute($data);
 
                     //データを取得（PDO::FETCH_ASSOCで連想配列を返す）
-                    $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+                    //$rec = $stmt->fetch(PDO::FETCH_ASSOC);
                     //var_dump($rec);
                     //データベース接続を切断
                     $dbh = null;
-                    // $update=$dbh->prepare("UPDATE Vac_Status 
-                    // SET vac_sta_value =:vac_sta_value 
-                    // WHERE vac_sta_value=?") ;
-                    // $update->bindValue(':vac_sta_value',$vac_sta_value);
                 } catch (Exception $e) {
                     var_dump($e);
                     print 'ただいま障害により大変ご迷惑をお掛けしております。';
@@ -134,31 +124,7 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
     <main class="container">
 
         <div class="starter-template text-center py-5 px-3">
-            <h1>接種完了の更新</h1>
-            <br><br><br><br>
-            <table align="center" width="1100">
-            <tr><th><h5>予約日</h5></th> <th><h5>予約時間</h5></th> <th><h5>マイナンバー</h5></th> <th><h5>利用者名</h5></th> <th><h5>年齢</h5></th> <th><h5>性別</h5></th> <th><h5>電話番号</h5></th> <th><h5>メールアドレス</h5></th> <th><h5>ワクチン種別</h5> <th><h5>接種完了</h5></th></th></tr>
-            <form method="post" action="s_change_done.php">
-                <th><?php print $rec['res_date']; ?></th>
-                <th><?php print $rec['res_time']; ?></th>
-                <th><?php print $rec['my_num']; ?></th>
-                <th><?php print $rec['name']; ?></th>
-                <th><?php print $rec['age']; ?></th>
-                <th><?php print $rec['sex']; ?></th>
-                <th><?php print $rec['tel']; ?></th>
-                <th><?php print $rec['mail']; ?></th>
-                <th><?php print $rec['vac_name']; ?></th>
-                <th><?php print $rec['vac_sta_value']; ?>
-                    <select name="vac_sta_code">
-                        <option value="0">未</option>
-                        <option value="1">済</option>
-                    </select>に更新
-            </th>
-            </table>
-                <br><br>
-                <h5><input type="submit" value="更新"></h5>
-                <input type="hidden" name="my_num" value="<?php print $my_num; ?>">
-            </form>
+            <h1>修正を完了しました</h1>
         </div>
 
     </main><!-- /.container -->

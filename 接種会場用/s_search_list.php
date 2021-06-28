@@ -61,6 +61,33 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
 
 <body>
 
+    <script>
+        //選択されていない場合にアラートを出す
+        function checksubmit() {
+            let flag = 0;
+            if (document.form1.my_num.length) {
+                flag = 1;
+                let i;
+                for (i = 0; i < document.form1.my_num.length; i++) {
+                    if (document.form1.my_num[i].checked) {
+                        flag = 0;
+                        break;
+                    }
+                }
+            } else {
+                if (!document.form1.my_num.checked) {
+                    flag = 1;
+                }
+            }
+            if (flag) {
+                window.alert('選択してください。');
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
+
     <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <div class="navbar-brand">
@@ -237,9 +264,15 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
                 } else {
 
                     print '<table align="center" width="1100">';
-                    print '<tr><th><h5>予約日</h5></th> <th><h5>予約時間</h5></th> <th><h5>マイナンバー</h5></th> <th><h5>利用者名</h5></th> <th><h5>年齢</h5></th> <th><h5>性別</h5></th> <th><h5>電話番号</h5></th> <th><h5>メールアドレス</h5></th> <th><h5>ワクチン種別</h5> <th><h5>接種完了</h5></th></th></tr>';
+                    print '<tr><th><h5>選択</h5></th> <th><h5>予約日</h5></th> <th><h5>予約時間</h5></th> <th><h5>マイナンバー</h5></th> <th><h5>利用者名</h5></th> <th><h5>年齢</h5></th> <th><h5>性別</h5></th> <th><h5>電話番号</h5></th> <th><h5>メールアドレス</h5></th> <th><h5>ワクチン種別</h5> <th><h5>接種完了</h5></th></th></tr>';
                     foreach ($rec as $key => $value) {
+                        //ラジオボタンで修正したいデータを選択
+                        print '<form name="form1" method="post" action="s_change.php" onSubmit="return checksubmit()">';
+                        //print'<form method="post" action="s_change.php">';
+                        // print '<input type="radio" name="my_num" value="' . $value['my_num'] . '">';
+
                         print '<tr>';
+                        print '<th><input type="radio" name="my_num" value="' . $value['my_num'] . '"></th>';
                         print '<th>' . $value['res_date'] . '</th>';
                         print '<th>' . $value['res_time'] . '</th>';
                         print '<th>' . $value['my_num'] . '</th>';
@@ -285,7 +318,9 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
 
             if (isset($rec[0]['my_num']) == true) {
                 print '
-                <br>
+                <br><br>
+                    <h5><input type="submit" value="修正"></h5>
+                </form>
                 <form method="post" action="s_search_list_download.php">
                     <input type="hidden" name="csv" value="' . $csv . '">
                     <h5><input type="submit" value="CSVファイルをダウンロード"></h5>

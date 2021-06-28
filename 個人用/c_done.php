@@ -51,8 +51,10 @@
 
 <?php
 
-    session_start();
-    session_regenerate_id(true);
+    SESSION_start();
+    SESSION_regenerate_id(true);
+    if (isset($_session['login']) == false)
+
 
     /* 
         $name = $_POST["name"];//カナ名
@@ -98,7 +100,7 @@
     catch(Exception $e)
 
     {
-       // var_dump($e);
+       var_dump($e);
     print'ただいま障害により大変ご迷惑をお掛けいたします。';
     exit();
     }  
@@ -114,7 +116,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item active">
                         <a class="nav-link" aria-current="page" href="#">
-                            <font color="white">←戻る</font>
+                            <!-- <font color="white">←戻る</font> -->
                         </a>
                     </li>
                 </ul>

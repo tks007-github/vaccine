@@ -50,14 +50,24 @@
 <body>
 
 <?php
-    session_start();
-    session_regenerate_id(true);
-    if(isset($_session['login'])==false)
+    SESSION_start();
+    SESSION_regenerate_id(true);
+    if(isset($_SESSION['login'])==false)
 
-    $name = $_POST['name'];
+   /* $name = $_POST['name'];
     $tel = $_POST['tel'];
-    $mail = $_POST['mail'];
-    $site_code = $_POST['site_code'];
+    $mail = $_POST['mail'];*/
+    var_dump($_POST);
+    if(!isset($_POST['site_code'])){
+
+        $site_code =  $_SESSION['site_code'];
+    
+    }else{
+
+        $site_code = $_POST['site_code'];
+        $_SESSION['site_code'] = $site_code;
+
+    }
 
     date_default_timezone_set('Asia/Tokyo');
     $today = date("Y-m-d",strtotime("1 day"));//予約しようとする日付けに一日加算
@@ -78,12 +88,18 @@
     $dbh=null;
 
 
-    $_SESSION['name']=$name;
-    $_SESSION['mail']=$mail;
-    $_SESSION['tel']=$tel;
+    $name = $_SESSION['name'];
+    $mail = $_SESSION['mail'];
+    $tel = $_SESSION['tel'];
     $_SESSION['site_code']=$site_code;
     $_SESSION['site_name']=$rec['site_name'];
     $site_name = $_SESSION['site_name'];
+
+
+    /*echo $name ;
+    echo $mail;
+    echo  $tel;
+    echo $_SESSION['site_code']*/
 
 ?>
 

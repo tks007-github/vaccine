@@ -94,7 +94,19 @@
             <br><br>
             <?php
 
-            $date = $_POST["date"];
+        if(!isset($_POST['date'])){
+
+            $date =  $_SESSION['date'];
+            
+            }else{
+
+            $date = $_POST['date'];
+            $_SESSION['date'] = $date;
+
+        }
+
+
+           // $date = $_POST["date"];
             print '<h1>'.$date.'</h1>';
             print '<br>';
 
@@ -144,16 +156,16 @@
 
 
             if ($r_time11["count(*)"] < 3) {
-                print '<h2><input type = "radio" name = "r_time" value = "11:00">11:00</h2><br/>';
+                print '<h2><input type = "radio" name = "r_time" value = "11:00" required>11:00</h2><br/>';
             }
 
 
             if ($r_time12["count(*)"] < 3) {
-                print '<h2><input type = "radio" name = "r_time" value = "12:00">12:00</h2><br/>';
+                print '<h2><input type = "radio" name = "r_time" value = "12:00" required>12:00</h2><br/>';
             }
 
             if ($r_time13["count(*)"] < 3) {
-                print '<h2><input type = "radio" name = "r_time" value = "13:00">13:00</h2><br/>';
+                print '<h2><input type = "radio" name = "r_time" value = "13:00" required>13:00</h2><br/>';
             }
 
             print '

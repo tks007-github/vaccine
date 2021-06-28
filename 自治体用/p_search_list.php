@@ -97,7 +97,7 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
             # エラー対策を行う(例外処理)
             try {
                 # p_search.phpから渡された値を$_POSTで受け取る
-
+                
                 if (isset($_POST['site_code']) == false && isset($_POST['res_date']) == false && isset($_POST['vac_code']) == false) {
                     $site_code = $_SESSION['site_code'];
                     $res_date = $_SESSION['res_date'];
@@ -141,6 +141,7 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
                         $vac_name = '指定なし';
                 }
 
+
                 if ($res_date != '') {
                     print "<h4>接種会場：" . $site_name . "　日にち：" . $res_date . "　ワクチン種別：" . $vac_name . "</h4><br><br>";
                 } else {
@@ -165,6 +166,7 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
                     JOIN Vaccine AS V USING(vac_code)
                     WHERE 1
                     ';
+                
                 if ($site_code != "") {
                     $sql .= 'AND site_code=?';
                 }

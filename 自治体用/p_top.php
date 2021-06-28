@@ -20,7 +20,7 @@ try {
       # 検索するSQL文の生成
       $sql = '
       SELECT COUNT(*), CURDATE() FROM Reservation
-      WHERE res_date <= CURDATE()
+      WHERE res_date <= CURDATE() AND vac_sta_code = 1
       ';
 
       $stmt = $dbh->prepare($sql);

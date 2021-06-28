@@ -57,7 +57,7 @@
    /* $name = $_POST['name'];
     $tel = $_POST['tel'];
     $mail = $_POST['mail'];*/
-    var_dump($_POST);
+    // var_dump($_POST);
     if(!isset($_POST['site_code'])){
 
         $site_code =  $_SESSION['site_code'];

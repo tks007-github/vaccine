@@ -1,7 +1,7 @@
 <?php
-session_start();                        # p_login_check.phpで作成したセッションを再開
-session_regenerate_id(true);            # 既存のセッションIDを新しく置き換える
-if (isset($_SESSION['login']) == false)      # セッション変数loginに値が格納されていない場合
+session_start();                        // p_login_check.phpで作成したセッションを再開
+session_regenerate_id(true);            // 既存のセッションIDを新しく置き換える
+if (isset($_SESSION['login']) == false)      // セッション変数loginに値が格納されていない場合
 {
     print 'ログインされていません。<br>';
     print '<a href="p_login.html">ログイン画面へ</a>';
@@ -66,7 +66,7 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
             <div class="navbar-brand">
                 <?php
                 if (isset($_SESSION['login']) == true) {
-                    print $_SESSION['pre_name'];      # セッション変数pre_nameを表示
+                    print $_SESSION['pre_name'];      // セッション変数pre_nameを表示
                     print 'でログイン中';
                 }
                 ?>
@@ -94,10 +94,9 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
             <h3>検索条件</h3>
 
             <?php
-            # エラー対策を行う(例外処理)
+            // エラー対策を行う(例外処理)
             try {
-                # p_search.phpから渡された値を$_POSTで受け取る
-                
+                // p_search.phpから遷移した場合(if)とp_search_list_download.phpから遷移した場合(else)で処理を分岐
                 if (isset($_POST['site_code']) == false && isset($_POST['res_date']) == false && isset($_POST['vac_code']) == false) {
                     $site_code = $_SESSION['site_code'];
                     $res_date = $_SESSION['res_date'];
@@ -111,52 +110,15 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
                     $vac_code = $_SESSION['vac_code'];
                 }
 
-                switch ($site_code) {
-                    case 'S0001':
-                        $site_name = '常総病院';
-                        break;
 
-                    case 'S0002':
-                        $site_name = '守谷病院';
-                        break;
-
-                    case 'S0003':
-                        $site_name = 'つくば病院';
-                        break;
-
-                    default:
-                        $site_name = '指定なし';
-                }
-
-                switch ($vac_code) {
-                    case 'V01':
-                        $vac_name = 'ファイザー';
-                        break;
-
-                    case 'V02':
-                        $vac_name = 'モデルナ';
-                        break;
-
-                    default:
-                        $vac_name = '指定なし';
-                }
-
-
-                if ($res_date != '') {
-                    print "<h4>接種会場：" . $site_name . "　日にち：" . $res_date . "　ワクチン種別：" . $vac_name . "</h4><br><br>";
-                } else {
-                    print "<h4>接種会場：" . $site_name . "　日にち：指定なし　ワクチン種別：" . $vac_name . "</h4><br><br>";
-                }
-
-
-                # Vaccine_Reservationデータベースに接続する
+                // Vaccine_Reservationデータベースに接続する
                 $dsn = 'mysql:dbname=Vaccine_Reservation;host=localhost;charset=utf8';
                 $user = 'root';
                 $password = 'root';
                 $dbh = new PDO($dsn, $user, $password);
                 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                # 検索するSQL文の生成
+                // 検索するSQL文の生成
                 $sql = '
                     SELECT R.my_num, TIMESTAMPDIFF(YEAR, C.birth, CURDATE()) AS age, 
                     S.site_name, R.res_date, V.vac_name
@@ -166,7 +128,7 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
                     JOIN Vaccine AS V USING(vac_code)
                     WHERE 1
                     ';
-                
+
                 if ($site_code != "") {
                     $sql .= 'AND site_code=?';
                 }
@@ -193,9 +155,42 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
                     $stmt->execute($data);
                 }
 
-                # Vaccine_Reservationデータベースから切断する
+                if ($site_code == '') {
+                    $site_name = '指定なし';
+                } else {
+                    // site_codeからsite_nameを取得するSQL文
+                    $sql2 = 'SELECT site_name FROM Site WHERE site_code = ?';
+                    $stmt2 = $dbh->prepare($sql2);
+                    $data2[] = $site_code;
+                    $stmt2->execute($data2);
+                    $rec2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+                    $site_name = $rec2['site_name'];
+                    print $site_name;
+                }
+
+                if ($vac_code == '') {
+                    $vac_name = '指定なし';
+                } else {
+                    // vac_codeからvac_nameを取得するSQL文
+                    $sql3 = 'SELECT vac_name FROM Vaccine WHERE vac_code = ?';
+                    $stmt3 = $dbh->prepare($sql3);
+                    $data3[] = $vac_code;
+                    $stmt3->execute($data3);
+                    $rec3 = $stmt3->fetch(PDO::FETCH_ASSOC);
+                    $vac_name = $rec3['vac_name'];
+                }
+
+
+                // Vaccine_Reservationデータベースから切断する
                 $dbh = null;
                 $rec = $stmt->fetchAll();
+
+                if ($res_date != '') {
+                    print "<h4>接種会場：" . $site_name . "　日にち：" . $res_date . "　ワクチン種別：" . $vac_name . "</h4><br><br>";
+                } else {
+                    print "<h4>接種会場：" . $site_name . "　日にち：指定なし　ワクチン種別：" . $vac_name . "</h4><br><br>";
+                }
+
 
                 $csv = 'マイナンバー,年齢,接種会場名,予約日,ワクチン種別';
                 $csv .= "\n";
@@ -229,7 +224,7 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
                     print '</table>';
                 }
             }
-            # エラーが発生した場合の処理
+            // エラーが発生した場合の処理
             catch (Exception $e) {
                 var_dump($e);
                 print 'ただいま障害により大変ご迷惑をお掛けしております。';

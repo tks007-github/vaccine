@@ -1,148 +1,148 @@
 <?php
-session_start();                        # p_login_check.phpで作成したセッションを再開
-session_regenerate_id(true);            # 既存のセッションIDを新しく置き換える
-if (isset($_SESSION['login']) == false)      # セッション変数loginに値が格納されていない場合
+session_start();                        // p_login_check.phpで作成したセッションを再開
+session_regenerate_id(true);            // 既存のセッションIDを新しく置き換える
+if (isset($_SESSION['login']) == false)      // セッション変数loginに値が格納されていない場合
 {
     print 'ログインされていません。<br>';
     print '<a href="p_login.html">ログイン画面へ</a>';
     exit();
 }
 
-# エラー対策を行う(例外処理)
+// エラー対策を行う(例外処理)
 try {
-    # Vaccine_Reservationデータベースに接続する
+    // Vaccine_Reservationデータベースに接続する
     $dsn = 'mysql:dbname=Vaccine_Reservation;host=localhost;charset=utf8';
     $user = 'root';
     $password = 'root';
     $dbh = new PDO($dsn, $user, $password);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    # 検索するSQL文の生成
+    // 検索するSQL文の生成
 
-    # 2021-05-31～2021-06-04の期間の累計接種者数
+    // 2021-05-31～2021-06-04の期間の累計接種者数
     $sql1_1 = "SELECT COUNT(*) FROM Reservation
     WHERE vac_sta_code = 1 AND res_date BETWEEN '2021-05-31' AND '2021-06-04'";
     $stmt1_1 = $dbh->prepare($sql1_1);
     $stmt1_1->execute();
     $rec1_1 = $stmt1_1->fetch(PDO::FETCH_ASSOC);
-    # print $rec1_1["COUNT(*)"];
+    // print $rec1_1["COUNT(*)"];
 
-    # 全体 2021-06-07～2021-06-11
+    // 全体 2021-06-07～2021-06-11の期間の累計接種者数
     $sql1_2 = "SELECT COUNT(*) FROM Reservation
-    WHERE res_date BETWEEN '2021-06-07' AND '2021-06-11'";
+    WHERE vac_sta_code = 1 AND res_date BETWEEN '2021-06-07' AND '2021-06-11'";
     $stmt1_2 = $dbh->prepare($sql1_2);
     $stmt1_2->execute();
     $rec1_2 = $stmt1_2->fetch(PDO::FETCH_ASSOC);
-    # print $rec1_2["COUNT(*)"];
+    // print $rec1_2["COUNT(*)"];
 
-    # 全体 2021-06-14～2021-06-18
+    // 全体 2021-06-14～2021-06-18の期間の累計接種者数
     $sql1_3 = "SELECT COUNT(*) FROM Reservation
-    WHERE res_date BETWEEN '2021-06-14' AND '2021-06-18'";
+    WHERE vac_sta_code = 1 AND res_date BETWEEN '2021-06-14' AND '2021-06-18'";
     $stmt1_3 = $dbh->prepare($sql1_3);
     $stmt1_3->execute();
     $rec1_3 = $stmt1_3->fetch(PDO::FETCH_ASSOC);
-    # print $rec1_3["COUNT(*)"];
+    // print $rec1_3["COUNT(*)"];
 
-    # 全体 2021-06-21～2021-06-25
+    // 全体 2021-06-21～2021-06-25の期間の累計接種者数
     $sql1_4 = "SELECT COUNT(*) FROM Reservation
-    WHERE res_date BETWEEN '2021-06-21' AND '2021-06-25'";
+    WHERE vac_sta_code = 1 AND res_date BETWEEN '2021-06-21' AND '2021-06-25'";
     $stmt1_4 = $dbh->prepare($sql1_4);
     $stmt1_4->execute();
     $rec1_4 = $stmt1_4->fetch(PDO::FETCH_ASSOC);
-    # print $rec1_4["COUNT(*)"];
+    // print $rec1_4["COUNT(*)"];
 
-    # 全体 2021-06-28～2021-07-02
+    // 全体 2021-06-28～2021-07-02の期間の累計接種者数
     $sql1_5 = "SELECT COUNT(*) FROM Reservation
-    WHERE res_date BETWEEN '2021-06-28' AND '2021-07-02'";
+    WHERE vac_sta_code = 1 AND res_date BETWEEN '2021-06-28' AND '2021-07-02'";
     $stmt1_5 = $dbh->prepare($sql1_5);
     $stmt1_5->execute();
     $rec1_5 = $stmt1_5->fetch(PDO::FETCH_ASSOC);
-    # print $rec1_5["COUNT(*)"];
+    // print $rec1_5["COUNT(*)"];
 
-    # ファイザー 2021-05-31～2021-06-04
+    // ファイザー 2021-05-31～2021-06-04の期間の累計接種者数
     $sql2_1 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_code = 'V01' AND res_date BETWEEN '2021-05-31' AND '2021-06-04'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V01' AND res_date BETWEEN '2021-05-31' AND '2021-06-04'";
     $stmt2_1 = $dbh->prepare($sql2_1);
     $stmt2_1->execute();
     $rec2_1 = $stmt2_1->fetch(PDO::FETCH_ASSOC);
-    # print $rec2_1["COUNT(*)"];
+    // print $rec2_1["COUNT(*)"];
 
-    # ファイザー 2021-06-07～2021-06-11
+    // ファイザー 2021-06-07～2021-06-11の期間の累計接種者数
     $sql2_2 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_code = 'V01' AND res_date BETWEEN '2021-06-07' AND '2021-06-11'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V01' AND res_date BETWEEN '2021-06-07' AND '2021-06-11'";
     $stmt2_2 = $dbh->prepare($sql2_2);
     $stmt2_2->execute();
     $rec2_2 = $stmt2_2->fetch(PDO::FETCH_ASSOC);
-    # print $rec2_2["COUNT(*)"];
+    // print $rec2_2["COUNT(*)"];
 
-    # ファイザー 2021-06-14～2021-06-18
+    // ファイザー 2021-06-14～2021-06-18の期間の累計接種者数
     $sql2_3 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_code = 'V01' AND res_date BETWEEN '2021-06-14' AND '2021-06-18'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V01' AND res_date BETWEEN '2021-06-14' AND '2021-06-18'";
     $stmt2_3 = $dbh->prepare($sql2_3);
     $stmt2_3->execute();
     $rec2_3 = $stmt2_3->fetch(PDO::FETCH_ASSOC);
-    # print $rec2_3["COUNT(*)"];
+    // print $rec2_3["COUNT(*)"];
 
-    # ファイザー 2021-06-21～2021-06-25
+    // ファイザー 2021-06-21～2021-06-25の期間の累計接種者数
     $sql2_4 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_code = 'V01' AND res_date BETWEEN '2021-06-21' AND '2021-06-25'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V01' AND res_date BETWEEN '2021-06-21' AND '2021-06-25'";
     $stmt2_4 = $dbh->prepare($sql2_4);
     $stmt2_4->execute();
     $rec2_4 = $stmt2_4->fetch(PDO::FETCH_ASSOC);
-    # print $rec2_4["COUNT(*)"];
+    // print $rec2_4["COUNT(*)"];
 
-    # ファイザー 2021-06-28～2021-07-02
+    // ファイザー 2021-06-28～2021-07-02の期間の累計接種者数
     $sql2_5 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_code = 'V01' AND res_date BETWEEN '2021-06-28' AND '2021-07-02'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V01' AND res_date BETWEEN '2021-06-28' AND '2021-07-02'";
     $stmt2_5 = $dbh->prepare($sql2_5);
     $stmt2_5->execute();
     $rec2_5 = $stmt2_5->fetch(PDO::FETCH_ASSOC);
-    # print $rec2_5["COUNT(*)"];
+    // print $rec2_5["COUNT(*)"];
 
-    # モデルナ 2021-05-31～2021-06-04
+    // モデルナ 2021-05-31～2021-06-04の期間の累計接種者数
     $sql3_1 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_code = 'V02' AND res_date BETWEEN '2021-05-31' AND '2021-06-04'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V02' AND res_date BETWEEN '2021-05-31' AND '2021-06-04'";
     $stmt3_1 = $dbh->prepare($sql3_1);
     $stmt3_1->execute();
     $rec3_1 = $stmt3_1->fetch(PDO::FETCH_ASSOC);
-    # print $rec3_1["COUNT(*)"];
+    // print $rec3_1["COUNT(*)"];
 
-    # モデルナ 2021-06-07～2021-06-11
+    // モデルナ 2021-06-07～2021-06-11の期間の累計接種者数
     $sql3_2 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_code = 'V02' AND res_date BETWEEN '2021-06-07' AND '2021-06-11'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V02' AND res_date BETWEEN '2021-06-07' AND '2021-06-11'";
     $stmt3_2 = $dbh->prepare($sql3_2);
     $stmt3_2->execute();
     $rec3_2 = $stmt3_2->fetch(PDO::FETCH_ASSOC);
-    # print $rec3_2["COUNT(*)"];
+    // print $rec3_2["COUNT(*)"];
 
-    # モデルナ 2021-06-14～2021-06-18
+    // モデルナ 2021-06-14～2021-06-18の期間の累計接種者数
     $sql3_3 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_code = 'V02' AND res_date BETWEEN '2021-06-14' AND '2021-06-18'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V02' AND res_date BETWEEN '2021-06-14' AND '2021-06-18'";
     $stmt3_3 = $dbh->prepare($sql3_3);
     $stmt3_3->execute();
     $rec3_3 = $stmt3_3->fetch(PDO::FETCH_ASSOC);
-    # print $rec3_3["COUNT(*)"];
+    // print $rec3_3["COUNT(*)"];
 
-    # モデルナ 2021-06-21～2021-06-25
+    // モデルナ 2021-06-21～2021-06-25の期間の累計接種者数
     $sql3_4 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_code = 'V02' AND res_date BETWEEN '2021-06-21' AND '2021-06-25'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V02' AND res_date BETWEEN '2021-06-21' AND '2021-06-25'";
     $stmt3_4 = $dbh->prepare($sql3_4);
     $stmt3_4->execute();
     $rec3_4 = $stmt3_4->fetch(PDO::FETCH_ASSOC);
-    # print $rec3_4["COUNT(*)"];
+    // print $rec3_4["COUNT(*)"];
 
-    # モデルナ 2021-06-28～2021-07-02
+    // モデルナ 2021-06-28～2021-07-02の期間の累計接種者数
     $sql3_5 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_code = 'V02' AND res_date BETWEEN '2021-06-28' AND '2021-07-02'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V02' AND res_date BETWEEN '2021-06-28' AND '2021-07-02'";
     $stmt3_5 = $dbh->prepare($sql3_5);
     $stmt3_5->execute();
     $rec3_5 = $stmt3_5->fetch(PDO::FETCH_ASSOC);
-    # print $rec3_5["COUNT(*)"];
+    // print $rec3_5["COUNT(*)"];
 
-    # Vaccine_Reservationデータベースから切断する
+    // Vaccine_Reservationデータベースから切断する
     $dbh = null;
 }
-# エラーが発生した場合の処理
+// エラーが発生した場合の処理
 catch (Exception $e) {
     var_dump($e);
     print 'ただいま障害により大変ご迷惑をお掛けしております。';
@@ -214,7 +214,7 @@ catch (Exception $e) {
             <div class="navbar-brand">
                 <?php
                 if (isset($_SESSION['login']) == true) {
-                    print $_SESSION['pre_name'];      # セッション変数pre_nameを表示
+                    print $_SESSION['pre_name'];      // セッション変数pre_nameを表示
                     print 'でログイン中';
                 }
                 ?>
@@ -251,38 +251,38 @@ catch (Exception $e) {
                         datasets: [{
                                 label: '全体',
                                 data: [<?php
-                                        print $rec1_1["COUNT(*)"] . ',';
-                                        print $rec1_2["COUNT(*)"] . ',';
-                                        print $rec1_3["COUNT(*)"] . ',';
-                                        print $rec1_4["COUNT(*)"] . ',';
-                                        print $rec1_5["COUNT(*)"];
+                                        print $rec1_1['COUNT(*)'] . ',';
+                                        print $rec1_2['COUNT(*)'] . ',';
+                                        print $rec1_3['COUNT(*)'] . ',';
+                                        print $rec1_4['COUNT(*)'] . ',';
+                                        print $rec1_5['COUNT(*)'];
                                         ?>],
-                                borderColor: "rgba(0,255,0,1)",
-                                backgroundColor: "rgba(0,0,0,0)"
+                                borderColor: 'rgba(0,255,0,1)',
+                                backgroundColor: 'rgba(0,0,0,0)'
                             },
                             {
                                 label: 'ファイザー',
                                 data: [<?php
-                                        print $rec2_1["COUNT(*)"] . ',';
-                                        print $rec2_2["COUNT(*)"] . ',';
-                                        print $rec2_3["COUNT(*)"] . ',';
-                                        print $rec2_4["COUNT(*)"] . ',';
-                                        print $rec2_5["COUNT(*)"];
+                                        print $rec2_1['COUNT(*)'] . ',';
+                                        print $rec2_2['COUNT(*)'] . ',';
+                                        print $rec2_3['COUNT(*)'] . ',';
+                                        print $rec2_4['COUNT(*)'] . ',';
+                                        print $rec2_5['COUNT(*)'];
                                         ?>],
-                                borderColor: "rgba(255,0,0,1)",
-                                backgroundColor: "rgba(0,0,0,0)"
+                                borderColor: 'rgba(255,0,0,1)',
+                                backgroundColor: 'rgba(0,0,0,0)'
                             },
                             {
                                 label: 'モデルナ',
                                 data: [<?php
-                                        print $rec3_1["COUNT(*)"] . ',';
-                                        print $rec3_2["COUNT(*)"] . ',';
-                                        print $rec3_3["COUNT(*)"] . ',';
-                                        print $rec3_4["COUNT(*)"] . ',';
-                                        print $rec3_5["COUNT(*)"];
+                                        print $rec3_1['COUNT(*)'] . ',';
+                                        print $rec3_2['COUNT(*)'] . ',';
+                                        print $rec3_3['COUNT(*)'] . ',';
+                                        print $rec3_4['COUNT(*)'] . ',';
+                                        print $rec3_5['COUNT(*)'];
                                         ?>],
-                                borderColor: "rgba(0,0,255,1)",
-                                backgroundColor: "rgba(0,0,0,0)"
+                                borderColor: 'rgba(0,0,255,1)',
+                                backgroundColor: 'rgba(0,0,0,0)'
                             },
                         ],
                     },

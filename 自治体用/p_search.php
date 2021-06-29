@@ -1,7 +1,7 @@
 <?php
-session_start();                        # p_login_check.phpで作成したセッションを再開
-session_regenerate_id(true);            # 既存のセッションIDを新しく置き換える
-if (isset($_SESSION['login']) == false)      # セッション変数loginに値が格納されていない場合
+session_start();                        // p_login_check.phpで作成したセッションを再開
+session_regenerate_id(true);            // 既存のセッションIDを新しく置き換える
+if (isset($_SESSION['login']) == false)      // セッション変数loginに値が格納されていない場合
 {
     print 'ログインされていません。<br>';
     print '<a href="p_login.html">ログイン画面へ</a>';
@@ -66,10 +66,10 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
             <div class="navbar-brand">
                 <?php
                 if (isset($_SESSION['login']) == true) {
-                    print $_SESSION['pre_name'];      # セッション変数pre_nameを表示
+                    print $_SESSION['pre_name'];      // セッション変数pre_nameを表示
                     print 'でログイン中';
                 }
-                # セッション変数の初期化(検索条件)
+                // セッション変数の初期化(検索条件)
                 $_SESSION['site_code'] = '';
                 $_SESSION['res_date'] = '';
                 $_SESSION['vac_code'] = '';

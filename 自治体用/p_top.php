@@ -17,7 +17,7 @@ try {
       $dbh = new PDO($dsn, $user, $password);
       $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-      # 検索するSQL文の生成
+      # 本日までの累計接種者数をカウントするSQL文の生成
       $sql = '
       SELECT COUNT(*), CURDATE() FROM Reservation
       WHERE res_date <= CURDATE() AND vac_sta_code = 1
@@ -32,7 +32,6 @@ try {
 }
 # エラーが発生した場合の処理
 catch (Exception $e) {
-      var_dump($e);
       print 'ただいま障害により大変ご迷惑をお掛けしております。';
       exit();
 }

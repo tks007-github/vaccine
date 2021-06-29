@@ -19,9 +19,9 @@ try {
 
     # 検索するSQL文の生成
 
-    # 全体 2021-05-31～2021-06-04
+    # 2021-05-31～2021-06-04の期間の累計接種者数
     $sql1_1 = "SELECT COUNT(*) FROM Reservation
-    WHERE res_date BETWEEN '2021-05-31' AND '2021-06-04'";
+    WHERE vac_sta_code = 1 AND res_date BETWEEN '2021-05-31' AND '2021-06-04'";
     $stmt1_1 = $dbh->prepare($sql1_1);
     $stmt1_1->execute();
     $rec1_1 = $stmt1_1->fetch(PDO::FETCH_ASSOC);

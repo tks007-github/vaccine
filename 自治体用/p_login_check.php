@@ -9,6 +9,7 @@ $pre_pass=$_POST['pass'];
 
 # $pre_passを暗号化する
 # $pre_pass=md5($site_pass);
+
 # Vaccine_Reservationデータベースに接続する
 $dsn='mysql:dbname=Vaccine_Reservation;host=localhost;charset=utf8';
 $user='root';
@@ -43,7 +44,7 @@ else			      # データベースからの問い合わせ結果があった場�
 {
       session_start();				# セッションを開始
       $_SESSION['login']=1;			# セッション変数に値を格納
-      $_SESSION['pre_name']=$pre_name;	# セッション変数にサイトコードを格納
+      $_SESSION['pre_name']=$pre_name;	# セッション変数に$pre_nameを格納
       header('Location:p_top.php');		# p_top.phpへリダイレクト
       exit();
 }
@@ -58,4 +59,3 @@ catch(Exception $e)
 }
 
 ?>
-

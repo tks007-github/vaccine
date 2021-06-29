@@ -12,7 +12,6 @@
   <link rel="canonical" href="https://getbootstrap.jp/docs/5.0/examples/sign-in/">
 
 
-
   <!-- Bootstrap core CSS -->
   <link href=https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css rel="stylesheet"
     integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -44,6 +43,8 @@
   </style>
 
 <script>
+  // IDとパスワードのバリデーション
+  // IDとパスワードのいずれかが空の場合、falseを返す
   function func_check() {
       let flg = true;
       const result_id = func_id_check();
@@ -54,6 +55,8 @@
       return flg;
   }
 
+  // IDのバリデーション
+  // IDが空の場合、警告ダイアログを出力
   function func_id_check() {
       const id = document.getElementById('input_id').value;
       if (id === '') {
@@ -64,6 +67,8 @@
       }
   }
 
+  // パスワードのバリデーション
+  // パスワードが空の場合、警告ダイアログを出力
   function func_pass_check() {
       const pass = document.getElementById('input_pass').value;
       if (pass === '') {

@@ -1,23 +1,23 @@
 <?php
-session_start();                        # s_login_check.phpで作成したセッションを再開
-session_regenerate_id(true);            # 既存のセッションIDを新しく置き換える
-if (isset($_SESSION['login']) == false)      # セッション変数loginに値が格納されていない場合
+session_start();                        // s_login_check.phpで作成したセッションを再開
+session_regenerate_id(true);            // 既存のセッションIDを新しく置き換える
+if (isset($_SESSION['login']) == false)      // セッション変数loginに値が格納されていない場合
 {
       print 'ログインされていません。<br>';
       print '<a href="s_login.html">ログイン画面へ</a>';
       exit();
 }
 
-# エラー対策を行う(例外処理)
+// エラー対策を行う(例外処理)
 try {
-      # Vaccine_Reservationデータベースに接続する
+      // Vaccine_Reservationデータベースに接続する
       $dsn = 'mysql:dbname=Vaccine_Reservation;host=localhost;charset=utf8';
       $user = 'root';
       $password = 'root';
       $dbh = new PDO($dsn, $user, $password);
       $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-      # 検索するSQL文の生成
+      // 本日までの累計接種者数をカウントするSQL文の生成
       $sql = '
       SELECT COUNT(*), CURDATE() FROM Reservation
       WHERE site_code = ? AND res_date = CURDATE()
@@ -27,11 +27,11 @@ try {
       $data[] = $_SESSION['site_code'];
       $stmt->execute($data);
 
-      # Vaccine_Reservationデータベースから切断する
+      // Vaccine_Reservationデータベースから切断する
       $dbh = null;
       $rec = $stmt->fetchAll();
 }
-# エラーが発生した場合の処理
+// エラーが発生した場合の処理
 catch (Exception $e) {
       var_dump($e);
       print 'ただいま障害により大変ご迷惑をお掛けしております。';
@@ -96,7 +96,7 @@ catch (Exception $e) {
                   <div class="navbar-brand">
                         <?php
                         if (isset($_SESSION['login']) == true) {
-                              print $_SESSION['site_name'];      # セッション変数site_nameを表示
+                              print $_SESSION['site_name'];      // セッション変数site_nameを表示
                               print 'でログイン中';
                         }
                         ?>

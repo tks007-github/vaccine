@@ -42,6 +42,44 @@
         }
     </style>
 
+<script>
+    // IDとパスワードのバリデーション
+    // IDとパスワードのいずれかが空の場合、falseを返す
+    function func_check() {
+        let flg = true;
+        const result_id = func_id_check();
+        const result_pass = func_pass_check();
+        flg = flg && result_id;
+        flg = flg && result_pass;
+  
+        return flg;
+    }
+  
+    // IDのバリデーション
+    // IDが空の場合、警告ダイアログを出力
+    function func_id_check() {
+        const id = document.getElementById('input_id').value;
+        if (id === '') {
+            window.alert('IDを入力してください');
+            return false;
+        } else {
+            return true; 
+        }
+    }
+  
+    // パスワードのバリデーション
+    // パスワードが空の場合、警告ダイアログを出力
+    function func_pass_check() {
+        const pass = document.getElementById('input_pass').value;
+        if (pass === '') {
+            window.alert('パスワードを入力してください');
+            return false;
+        } else {
+            return true; 
+        }
+    }
+</script>
+
 
     <!-- Custom styles for this template -->
     <link href="starter-template.css" rel="stylesheet">

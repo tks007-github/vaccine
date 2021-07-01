@@ -1,7 +1,7 @@
 <?php
-session_start();                        # p_login_check.phpで作成したセッションを再開
-session_regenerate_id(true);            # 既存のセッションIDを新しく置き換える
-if (isset($_SESSION['login']) == false)      # セッション変数loginに値が格納されていない場合
+session_start();                        // s_login_check.phpで作成したセッションを再開
+session_regenerate_id(true);            // 既存のセッションIDを新しく置き換える
+if (isset($_SESSION['login']) == false)      // セッション変数loginに値が格納されていない場合
 {
     print 'ログインされていません。<br>';
     print '<a href="p_login.html">ログイン画面へ</a>';
@@ -121,9 +121,9 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
             <h3>検索条件</h3>
 
             <?php
-            # エラー対策を行う(例外処理)
+            // エラー対策を行う(例外処理)
             try {
-                # p_search.phpから渡された値を$_POSTで受け取る
+                // s_search.phpから遷移した場合(if)とs_search_list_download.phpから遷移した場合(else)で処理を分岐
                 $site_code = $_SESSION['site_code'];
                 if (isset($_POST['res_date']) == false && isset($_POST['res_time']) == false && isset($_POST['my_num']) == false && isset($_POST['vac_code']) == false && isset($_POST['vac_sta_code']) == false) {
                     $res_date = $_SESSION['res_date'];
@@ -189,14 +189,14 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
 
                 print "<h4>予約日：" . $res_date_name . "　予約時間：" . $res_time_name . "　マイナンバー：" . $my_num_name . "　ワクチン種別：" . $vac_name . "　接種完了：" . $vac_sta_name . "</h4><br><br>";
 
-                # Vaccine_Reservationデータベースに接続する
+                // Vaccine_Reservationデータベースに接続する
                 $dsn = 'mysql:dbname=Vaccine_Reservation;host=localhost;charset=utf8';
                 $user = 'root';
                 $password = 'root';
                 $dbh = new PDO($dsn, $user, $password);
                 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                # 検索するSQL文の生成
+                // 検索するSQL文の生成
                 $sql = '
                     SELECT R.site_code, C.name,
                     R.my_num, TIMESTAMPDIFF(YEAR, C.birth, CURDATE()) AS age,
@@ -209,6 +209,7 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
                     JOIN Citizen_Add AS CA USING(my_num)
                     WHERE site_code = ?
                     ';
+
                 if ($my_num != "") {
                     $sql .= 'AND my_num=?';
                 }
@@ -225,10 +226,10 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
                     $sql .= 'AND vac_sta_code=?';
                 }
 
-                //res_date,res_timeの順に並び替える
+                // res_date,res_timeの順に並び替える
                 $sql .= 'ORDER BY res_date, res_time, my_num';
 
-                //プリペアドステートメントを作成
+                // プリペアドステートメントを作成
                 $stmt = $dbh->prepare($sql);
                 $data[] = $site_code;
                 if ($my_num != "") {
@@ -246,14 +247,12 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
                 if ($vac_sta_code != "") {
                     $data[] = $vac_sta_code;
                 }
-                //実行
+                // 実行
                 $stmt->execute($data);
-
-
-                //データベース接続を切断
+                // データベース接続を切断
                 $dbh = null;
 
-                //データを取得（PDO::FETCH_ASSOCで連想配列を返す）
+                // データを取得（PDO::FETCH_ASSOCで連想配列を返す）
                 $rec = $stmt->fetchAll();
 
                 $csv = '予約日,予約時間,マイナンバー,利用者名,年齢,性別,電話番号,メールアドレス,ワクチン種別,接種完了';
@@ -266,9 +265,9 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
                     print '<table align="center" width="1100">';
                     print '<tr><th><h5>選択</h5></th> <th><h5>予約日</h5></th> <th><h5>予約時間</h5></th> <th><h5>マイナンバー</h5></th> <th><h5>利用者名</h5></th> <th><h5>年齢</h5></th> <th><h5>性別</h5></th> <th><h5>電話番号</h5></th> <th><h5>メールアドレス</h5></th> <th><h5>ワクチン種別</h5> <th><h5>接種完了</h5></th></th></tr>';
                     foreach ($rec as $key => $value) {
-                        //ラジオボタンで修正したいデータを選択
+                        // ラジオボタンで修正したいデータを選択
                         print '<form name="form1" method="post" action="s_change.php" onSubmit="return checksubmit()">';
-                        //print'<form method="post" action="s_change.php">';
+                        // print'<form method="post" action="s_change.php">';
                         // print '<input type="radio" name="my_num" value="' . $value['my_num'] . '">';
 
                         print '<tr>';
@@ -309,7 +308,7 @@ if (isset($_SESSION['login']) == false)      # セッション変数loginに値�
                     print '</table>';
                 }
             }
-            # エラーが発生した場合の処理
+            // エラーが発生した場合の処理
             catch (Exception $e) {
                 var_dump($e);
                 print 'ただいま障害により大変ご迷惑をお掛けしております。';

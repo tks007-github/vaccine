@@ -157,7 +157,7 @@
             const tel = document.querySelector('#tel');
 
             if(!tel.value.match(/^0\d{9,10}$/)){
-                //0から始まる９桁の数字
+                // 0から始まる9桁の数字
                 window.alert("電話番号が正しくありません");
                 return false;
 

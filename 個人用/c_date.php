@@ -133,10 +133,10 @@
         <div class="starter-template text-center py-5 px-3">
             <h1>希望日を選択してください</h1>
             <br><br><br><br>
-            <form method="post" action="c_time.php">
+            <form method="post" action="c_time.php" id="submit" onsubmit="return funck_date_check()">
                 <h1>会場名&nbsp;：<?php print $site_name; ?></h1>
                 <h5>
-                <input type= 'date' name='date' min='<?php print $today ?>' required>
+                <input type= "date" name="date" min="<?php print $today ?>" id="date">
                 </h5>
                 <br><br>
                 <input type="hidden" value=<?php print $name; ?> name="name">
@@ -152,6 +152,27 @@
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
+    <script>
+
+        function funck_date_check() {
+
+
+            const birth = document.querySelector('#date');
+
+            if (birth.value == '') {
+                window.alert("希望日を入力してください");
+                return false;
+
+            } else {
+
+                // window.alert('tel ok');
+                return true;
+
+            }
+        }
+
+
+    </script>
 
 </body>
 

@@ -45,7 +45,7 @@ try
 
 	if($rec==false)		// データベースからの問合せ結果がない場合
 	{
-		header('Location:c_login_ng.html');
+		header('Location:c_login_ng.php');
 	}
 	else				// データベースからの問合せがあった場合
 	{

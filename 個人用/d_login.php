@@ -14,7 +14,8 @@
 
 
     <!-- Bootstrap core CSS -->
-    <link href=https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href=https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
@@ -48,21 +49,32 @@
 </head>
 
 <body>
+    <?php
+     SESSION_start();
+
+     $_SESSION['my_num'] = '';
+     $_SESSION['birth'] = '';
+
+     ?>
 
     <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
         <div class="container-fluid">
             <div class="navbar-brand">
-                
+
             </div>
             <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item active">
-                        <a class="nav-link" aria-current="page" href="c_top.html"><font color="white">←戻る</font></a>
+                        <a class="nav-link" aria-current="page" href="c_top.html">
+                            <font color="white">←戻る</font>
+                        </a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto mb-2 mb-md-0">
                     <li class="nav-item active">
-                        <a class="nav-link" aria-current="page" href="c_top.html"><font color="white">ホーム</font></a>
+                        <a class="nav-link" aria-current="page" href="c_top.html">
+                            <font color="white">ホーム</font>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -74,12 +86,12 @@
         <div class="starter-template text-center py-5 px-3">
             <h1>個人認証の為、以下を入力してください</h1>
             <br><br><br><br>
-            <form method="post" action="d_login_check.php">
+            <form method="post" action="d_login_check.php" id="submit" onsubmit="return input_check()">
                 <h1>マイナンバー</h1>
-                <h5><input type="text" name="my_num"  placeholder="入力必須"></h5>
+                <h5><input type="text" name="my_num" placeholder="入力必須" id="mynum"></h5>
                 <br><br>
                 <h1>生年月日</h1>
-                <h5><input type="date" name="birth" placeholder="入力必須"></h5>
+                <h5><input type="date" name="birth" placeholder="入力必須" id="birth"></h5>
                 <br><br>
                 <br><br>
                 <h3><input type="submit" value="次へ"></h3>
@@ -89,8 +101,63 @@
     </main><!-- /.container -->
 
 
-    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
 
+    <script>
+
+
+        function input_check() {
+
+            let flg = true;
+
+            const result_mynum = funck_mynum_check();
+            const result_birth = funck_birth_check();
+
+            flg = flg && result_mynum;
+            flg = flg && result_birth;
+
+            return flg;
+
+        }
+
+        function funck_mynum_check() {
+
+            const mynum = document.querySelector('#mynum');
+
+            if (mynum.value == '') {
+
+                window.alert('マイナンバーを入力してください');
+                return false;
+
+            } else {
+
+                // window.alert('name ok');
+                return true;
+
+            }
+        }
+
+        function funck_birth_check() {
+
+
+            const birth = document.querySelector('#birth');
+
+            if (birth.value == '') {
+                window.alert("生年月日を入力してください");
+                return false;
+
+            } else {
+
+                // window.alert('tel ok');
+                return true;
+
+            }
+        }
+
+
+    </script>
 
 </body>
 

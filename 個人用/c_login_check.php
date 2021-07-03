@@ -52,7 +52,6 @@ try
 		$_SESSION['my_num']=$my_num;
 		$_SESSION['birth']=$birth;
 		header('Location:c_add.php');
-		print 'seiko';
 		exit();
 	}
 

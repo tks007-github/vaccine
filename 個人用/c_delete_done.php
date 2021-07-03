@@ -89,7 +89,7 @@
 				<ul class="navbar-nav me-auto mb-2 mb-md-0">
 					<li class="nav-item active">
 						<a class="nav-link" aria-current="page" href="#">
-							<font color="white">←戻る</font>
+							<!-- <font color="white">←戻る</font> -->
 						</a>
 					</li>
 				</ul>

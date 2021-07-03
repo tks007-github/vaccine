@@ -106,21 +106,7 @@
 	<main class="container">
 
 		<div class="starter-template text-center py-5 px-3">
-			<h3>
-				接種者コード：<?php print $Reservation_my_num; ?>
-			</h3>
-			<br>
-			<h3>
-				接種予定日：<?php print $Reservation_res_date; ?>
-			</h3>
-			<br>
-			<h3>
-				予定時間：<?php print $Reservation_res_time; ?>
-			</h3>
-
-			<br><br>
-			<h4>以上の接種を予約しています</h4>
-			<h4>この予定を削除してよろしいですか</h4>
+			<h3>本当に予約を削除してよろしいですか</h3>
 			<br><br>
 			<form action="c_delete_done.php" method="post">
 

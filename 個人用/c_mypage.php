@@ -84,7 +84,7 @@
 				<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 					<ul class="navbar-nav me-auto mb-2 mb-md-0">
 						<li class="nav-item active">
-							<a class="nav-link" aria-current="page" href="d_login.html">
+							<a class="nav-link" aria-current="page" href="d_login.php">
 								<font color="white">←戻る</font>
 							</a>
 						</li>
@@ -107,27 +107,26 @@
 				<br><br>
 			<?php
 			print '<form method="post"action="c_delete_check.php">';
-			while (true) {
-				$rec = $stmt->fetch(PDO::FETCH_ASSOC);
-				$rec1 = $stmt1->fetch(PDO::FETCH_ASSOC);
-				switch ($rec1['site_code']) {
-					case 'S0001':
-						$site_name = '常総病院';
-						break;
-
-					case 'S0002':
-						$site_name = '守谷病院';
-						break;
-
-					case 'S0003':
-						$site_name = 'つくば病院';
-						break;
-				}
-				if ($rec == false) {
+			$rec = $stmt->fetch(PDO::FETCH_ASSOC);
+			$rec1 = $stmt1->fetch(PDO::FETCH_ASSOC);
+			switch ($rec1['site_code']) {
+				case 'S0001':
+					$site_name = '常総病院';
 					break;
-				}
-				print '<h3><input type="radio" name="r_my_num" value="' . $rec['my_num'] . '">';
-				print $rec['kana'] . '様</h3><br />';
+
+				case 'S0002':
+					$site_name = '守谷病院';
+					break;
+
+				case 'S0003':
+					$site_name = 'つくば病院';
+					break;
+			}
+			if ($rec == false) {
+				print '<h3>予約がありません</h3>';
+			} else {
+				print '<input type="hidden" name="r_my_num" value="' . $rec['my_num'] . '">';
+				print '<h3>名前(カナ)：' . $rec['kana'] . '様</h3><br />';
 				print '<h3>電話番号：' . $rec['tel'] . '</h3>';
 				print '<br />';
 				print '<h3>メールアドレス：' . $rec['mail'] . '</h3>';
@@ -137,11 +136,12 @@
 				print '<h3>日時：' . $rec1['res_date'] . ' / ' . $rec1['res_time'] . '</h3>';
 				print '<br />';
 				print '<h4>時間を守って来訪をお願いいたします</h4><br />';
+				print '<br />';
+				print '<h3><input type="submit"name="c_delete_check.php"value="予約取消し"></h3>';
+				print '</form>';
 			}
-			print '<br />';
-			print '<h3><input type="submit"name="c_delete_check.php"value="予約取消し"></h3>';
-			print '</form>';
 		}
+
 			?>
 
 			</div>

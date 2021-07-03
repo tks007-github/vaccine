@@ -76,12 +76,12 @@
             <br><br>
             <h3><font color="red">入力に誤りがあります</font></h3>
             <br>
-            <form method="post" action="c_login_check.php">
+            <form method="post" action="c_login_check.php" id="submit" onsubmit="return input_check()">
                 <h1>マイナンバー</h1>
-                <h5><input type="text" name="my_num"  placeholder="入力必須"></h5>
+                <h5><input type="text" name="my_num"  placeholder="入力必須" id="mynum"></h5>
                 <br><br>
                 <h1>生年月日</h1>
-                <h5><input type="date" name="birth" placeholder="入力必須"></h5>
+                <h5><input type="date" name="birth" placeholder="入力必須" id="birth"></h5>
                 <br><br>
                 <br><br>
                 <h3><input type="submit" value="次へ"></h3>
@@ -92,6 +92,60 @@
 
 
     <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+    <script>
+
+
+        function input_check() {
+
+            let flg = true;
+
+            const result_mynum = funck_mynum_check();
+            const result_birth = funck_birth_check();
+
+            flg = flg && result_mynum;
+            flg = flg && result_birth;
+
+            return flg;
+
+        }
+
+        function funck_mynum_check() {
+
+            const mynum = document.querySelector('#mynum');
+
+            if (mynum.value == '') {
+
+                window.alert('マイナンバーを入力してください');
+                return false;
+
+            } else {
+
+                // window.alert('name ok');
+                return true;
+
+            }
+        }
+
+        function funck_birth_check() {
+
+
+            const birth = document.querySelector('#birth');
+
+            if (birth.value == '') {
+                window.alert("生年月日を入力してください");
+                return false;
+
+            } else {
+
+                // window.alert('tel ok');
+                return true;
+
+            }
+        }
+
+
+    </script>
 
 
 </body>

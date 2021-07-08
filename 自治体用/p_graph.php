@@ -10,6 +10,19 @@ if (isset($_SESSION['login']) == false)      // セッション変数loginに値
 
 // エラー対策を行う(例外処理)
 try {
+    date_default_timezone_set('Asia/Tokyo');
+    $day = -(date('w') + 2);
+    $fin_5 = date("Y-m-d", strtotime($day . "day"));        // 1週間前の金曜日の日付
+    $sta_5 = date("Y-m-d", strtotime($day-4 . "day"));      // 1週間前の月曜日の日付
+    $fin_4 = date("Y-m-d", strtotime($day-7 . "day"));      // 2週間前の金曜日の日付
+    $sta_4 = date("Y-m-d", strtotime($day-11 . "day"));     // 2週間前の月曜日の日付
+    $fin_3 = date("Y-m-d", strtotime($day-14 . "day"));     // 3週間前の金曜日の日付
+    $sta_3 = date("Y-m-d", strtotime($day-18 . "day"));     // 3週間前の月曜日の日付
+    $fin_2 = date("Y-m-d", strtotime($day-21 . "day"));     // 4週間前の金曜日の日付
+    $sta_2 = date("Y-m-d", strtotime($day-25 . "day"));     // 4週間前の月曜日の日付
+    $fin_1 = date("Y-m-d", strtotime($day-28 . "day"));     // 5週間前の金曜日の日付
+    $sta_1 = date("Y-m-d", strtotime($day-32 . "day"));     // 5週間前の月曜日の日付
+
     // Vaccine_Reservationデータベースに接続する
     $dsn = 'mysql:dbname=Vaccine_Reservation;host=localhost;charset=utf8';
     $user = 'root';
@@ -21,121 +34,151 @@ try {
 
     // 2021-05-31～2021-06-04の期間の累計接種者数
     $sql1_1 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_sta_code = 1 AND res_date BETWEEN '2021-05-31' AND '2021-06-04'";
+    WHERE vac_sta_code = 1 AND res_date BETWEEN ? AND ?";
     $stmt1_1 = $dbh->prepare($sql1_1);
-    $stmt1_1->execute();
+    $data1_1[] = $sta_1;
+    $data1_1[] = $fin_1;
+    $stmt1_1->execute($data1_1);
     $rec1_1 = $stmt1_1->fetch(PDO::FETCH_ASSOC);
     // print $rec1_1["COUNT(*)"];
 
     // 全体 2021-06-07～2021-06-11の期間の累計接種者数
     $sql1_2 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_sta_code = 1 AND res_date BETWEEN '2021-06-07' AND '2021-06-11'";
+    WHERE vac_sta_code = 1 AND res_date BETWEEN ? AND ?";
     $stmt1_2 = $dbh->prepare($sql1_2);
-    $stmt1_2->execute();
+    $data1_2[] = $sta_2;
+    $data1_2[] = $fin_2;
+    $stmt1_2->execute($data1_2);
     $rec1_2 = $stmt1_2->fetch(PDO::FETCH_ASSOC);
     // print $rec1_2["COUNT(*)"];
 
     // 全体 2021-06-14～2021-06-18の期間の累計接種者数
     $sql1_3 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_sta_code = 1 AND res_date BETWEEN '2021-06-14' AND '2021-06-18'";
+    WHERE vac_sta_code = 1 AND res_date BETWEEN ? AND ?";
     $stmt1_3 = $dbh->prepare($sql1_3);
-    $stmt1_3->execute();
+    $data1_3[] = $sta_3;
+    $data1_3[] = $fin_3;
+    $stmt1_3->execute($data1_3);
     $rec1_3 = $stmt1_3->fetch(PDO::FETCH_ASSOC);
     // print $rec1_3["COUNT(*)"];
 
     // 全体 2021-06-21～2021-06-25の期間の累計接種者数
     $sql1_4 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_sta_code = 1 AND res_date BETWEEN '2021-06-21' AND '2021-06-25'";
+    WHERE vac_sta_code = 1 AND res_date BETWEEN ? AND ?";
     $stmt1_4 = $dbh->prepare($sql1_4);
-    $stmt1_4->execute();
+    $data1_4[] = $sta_4;
+    $data1_4[] = $fin_4;
+    $stmt1_4->execute($data1_4);
     $rec1_4 = $stmt1_4->fetch(PDO::FETCH_ASSOC);
     // print $rec1_4["COUNT(*)"];
 
     // 全体 2021-06-28～2021-07-02の期間の累計接種者数
     $sql1_5 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_sta_code = 1 AND res_date BETWEEN '2021-06-28' AND '2021-07-02'";
+    WHERE vac_sta_code = 1 AND res_date BETWEEN ? AND ?";
     $stmt1_5 = $dbh->prepare($sql1_5);
-    $stmt1_5->execute();
+    $data1_5[] = $sta_5;
+    $data1_5[] = $fin_5;
+    $stmt1_5->execute($data1_5);
     $rec1_5 = $stmt1_5->fetch(PDO::FETCH_ASSOC);
     // print $rec1_5["COUNT(*)"];
 
     // ファイザー 2021-05-31～2021-06-04の期間の累計接種者数
     $sql2_1 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_sta_code = 1 AND vac_code = 'V01' AND res_date BETWEEN '2021-05-31' AND '2021-06-04'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V01' AND res_date BETWEEN ? AND ?";
     $stmt2_1 = $dbh->prepare($sql2_1);
-    $stmt2_1->execute();
+    $data2_1[] = $sta_1;
+    $data2_1[] = $fin_1;
+    $stmt2_1->execute($data2_1);
     $rec2_1 = $stmt2_1->fetch(PDO::FETCH_ASSOC);
     // print $rec2_1["COUNT(*)"];
 
     // ファイザー 2021-06-07～2021-06-11の期間の累計接種者数
     $sql2_2 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_sta_code = 1 AND vac_code = 'V01' AND res_date BETWEEN '2021-06-07' AND '2021-06-11'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V01' AND res_date BETWEEN ? AND ?";
     $stmt2_2 = $dbh->prepare($sql2_2);
-    $stmt2_2->execute();
+    $data2_2[] = $sta_2;
+    $data2_2[] = $fin_2;
+    $stmt2_2->execute($data2_2);
     $rec2_2 = $stmt2_2->fetch(PDO::FETCH_ASSOC);
     // print $rec2_2["COUNT(*)"];
 
     // ファイザー 2021-06-14～2021-06-18の期間の累計接種者数
     $sql2_3 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_sta_code = 1 AND vac_code = 'V01' AND res_date BETWEEN '2021-06-14' AND '2021-06-18'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V01' AND res_date BETWEEN ? AND ?";
     $stmt2_3 = $dbh->prepare($sql2_3);
-    $stmt2_3->execute();
+    $data2_3[] = $sta_3;
+    $data2_3[] = $fin_3;
+    $stmt2_3->execute($data2_3);
     $rec2_3 = $stmt2_3->fetch(PDO::FETCH_ASSOC);
     // print $rec2_3["COUNT(*)"];
 
     // ファイザー 2021-06-21～2021-06-25の期間の累計接種者数
     $sql2_4 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_sta_code = 1 AND vac_code = 'V01' AND res_date BETWEEN '2021-06-21' AND '2021-06-25'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V01' AND res_date BETWEEN ? AND ?";
     $stmt2_4 = $dbh->prepare($sql2_4);
-    $stmt2_4->execute();
+    $data2_4[] = $sta_4;
+    $data2_4[] = $fin_4;
+    $stmt2_4->execute($data2_4);
     $rec2_4 = $stmt2_4->fetch(PDO::FETCH_ASSOC);
     // print $rec2_4["COUNT(*)"];
 
     // ファイザー 2021-06-28～2021-07-02の期間の累計接種者数
     $sql2_5 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_sta_code = 1 AND vac_code = 'V01' AND res_date BETWEEN '2021-06-28' AND '2021-07-02'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V01' AND res_date BETWEEN ? AND ?";
     $stmt2_5 = $dbh->prepare($sql2_5);
-    $stmt2_5->execute();
+    $data2_5[] = $sta_5;
+    $data2_5[] = $fin_5;
+    $stmt2_5->execute($data2_5);
     $rec2_5 = $stmt2_5->fetch(PDO::FETCH_ASSOC);
     // print $rec2_5["COUNT(*)"];
 
     // モデルナ 2021-05-31～2021-06-04の期間の累計接種者数
     $sql3_1 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_sta_code = 1 AND vac_code = 'V02' AND res_date BETWEEN '2021-05-31' AND '2021-06-04'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V02' AND res_date BETWEEN ? AND ?";
     $stmt3_1 = $dbh->prepare($sql3_1);
-    $stmt3_1->execute();
+    $data3_1[] = $sta_1;
+    $data3_1[] = $fin_1;
+    $stmt3_1->execute($data3_1);
     $rec3_1 = $stmt3_1->fetch(PDO::FETCH_ASSOC);
     // print $rec3_1["COUNT(*)"];
 
     // モデルナ 2021-06-07～2021-06-11の期間の累計接種者数
     $sql3_2 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_sta_code = 1 AND vac_code = 'V02' AND res_date BETWEEN '2021-06-07' AND '2021-06-11'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V02' AND res_date BETWEEN ? AND ?";
     $stmt3_2 = $dbh->prepare($sql3_2);
-    $stmt3_2->execute();
+    $data3_2[] = $sta_2;
+    $data3_2[] = $fin_2;
+    $stmt3_2->execute($data3_2);
     $rec3_2 = $stmt3_2->fetch(PDO::FETCH_ASSOC);
     // print $rec3_2["COUNT(*)"];
 
     // モデルナ 2021-06-14～2021-06-18の期間の累計接種者数
     $sql3_3 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_sta_code = 1 AND vac_code = 'V02' AND res_date BETWEEN '2021-06-14' AND '2021-06-18'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V02' AND res_date BETWEEN ? AND ?";
     $stmt3_3 = $dbh->prepare($sql3_3);
-    $stmt3_3->execute();
+    $data3_3[] = $sta_3;
+    $data3_3[] = $fin_3;
+    $stmt3_3->execute($data3_3);
     $rec3_3 = $stmt3_3->fetch(PDO::FETCH_ASSOC);
     // print $rec3_3["COUNT(*)"];
 
     // モデルナ 2021-06-21～2021-06-25の期間の累計接種者数
     $sql3_4 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_sta_code = 1 AND vac_code = 'V02' AND res_date BETWEEN '2021-06-21' AND '2021-06-25'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V02' AND res_date BETWEEN ? AND ?";
     $stmt3_4 = $dbh->prepare($sql3_4);
-    $stmt3_4->execute();
+    $data3_4[] = $sta_4;
+    $data3_4[] = $fin_4;
+    $stmt3_4->execute($data3_4);
     $rec3_4 = $stmt3_4->fetch(PDO::FETCH_ASSOC);
     // print $rec3_4["COUNT(*)"];
 
     // モデルナ 2021-06-28～2021-07-02の期間の累計接種者数
     $sql3_5 = "SELECT COUNT(*) FROM Reservation
-    WHERE vac_sta_code = 1 AND vac_code = 'V02' AND res_date BETWEEN '2021-06-28' AND '2021-07-02'";
+    WHERE vac_sta_code = 1 AND vac_code = 'V02' AND res_date BETWEEN ? AND ?";
     $stmt3_5 = $dbh->prepare($sql3_5);
-    $stmt3_5->execute();
+    $data3_5[] = $sta_5;
+    $data3_5[] = $fin_5;
+    $stmt3_5->execute($data3_5);
     $rec3_5 = $stmt3_5->fetch(PDO::FETCH_ASSOC);
     // print $rec3_5["COUNT(*)"];
 
@@ -247,7 +290,14 @@ catch (Exception $e) {
                 let myLineChart = new Chart(canvas, {
                     type: 'line',
                     data: {
-                        labels: ['5/31～6/4', '6/7～6/11', '6/14～6/18', '6/21～6/25', '6/28～7/2'],
+                        // labels: ['5/31～6/4', '6/7～6/11', '6/14～6/18', '6/21～6/25', '6/28～7/2'],
+                        labels: [<?php
+                                    print $sta_1 . ',';
+                                    print $fin_1 . ',';
+                                    print $fin_1 . ',';
+                                    print $fin_1 . ',';
+                                    print $fin_1 . ',';
+                                    ?>],
                         datasets: [{
                                 label: '全体',
                                 data: [<?php

@@ -280,7 +280,7 @@ catch (Exception $e) {
 
         <div class="starter-template text-center py-5 px-3">
             <h1>グラフ</h1>
-            <h3>～１週間のワクチン接種者数推移～</h3>
+            <h3>～ワクチン接種者数推移～</h3>
             <br>
 
             <canvas id="canvas"></canvas>

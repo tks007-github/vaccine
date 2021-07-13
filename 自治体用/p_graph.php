@@ -283,6 +283,12 @@ catch (Exception $e) {
             <h3>～ワクチン接種者数推移～</h3>
             <br>
 
+            <?php
+                $sta_1 = strval(date('m/d', strtotime($sta_1))); 
+                print $sta_1 ;
+                print gettype($sta_1);
+            ?>
+
             <canvas id="canvas"></canvas>
             <script>
                 let canvas = document.getElementById("canvas");
@@ -290,14 +296,7 @@ catch (Exception $e) {
                 let myLineChart = new Chart(canvas, {
                     type: 'line',
                     data: {
-                        // labels: ['5/31～6/4', '6/7～6/11', '6/14～6/18', '6/21～6/25', '6/28～7/2'],
-                        labels: [<?php
-                                    print $sta_1 . ',';
-                                    print $fin_1 . ',';
-                                    print $fin_1 . ',';
-                                    print $fin_1 . ',';
-                                    print $fin_1 . ',';
-                                    ?>],
+                        labels: [<?php print $sta_1; ?>, '6/7～6/11', '6/14～6/18', '6/21～6/25', '6/28～7/2'],
                         datasets: [{
                                 label: '全体',
                                 data: [<?php

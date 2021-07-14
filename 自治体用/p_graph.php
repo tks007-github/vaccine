@@ -284,22 +284,27 @@ catch (Exception $e) {
             <br>
 
             <?php
-                $sta_1 = strval(date('m/d', strtotime($sta_1))); 
-                print $sta_1 ;
-                print gettype($sta_1);
+                $sta_1_m = strval(date('m', strtotime($sta_1)));
+                $sta_1_d = strval(date('d', strtotime($sta_1)));
+                $fin_1_m = strval(date('m', strtotime($fin_1)));
+                $fin_1_d = strval(date('d', strtotime($fin_1))); 
             ?>
 
             <canvas id="canvas"></canvas>
             <script>
                 let canvas = document.getElementById("canvas");
 
-                let sta_1 = <?php print $sta_1; ?>;
-                console.log(sta_1);
+                let sta_1 = <?php print $sta_1_m; ?> + '/' + <?php print $sta_1_d; ?>;
+                let fin_1 = <?php print $fin_1_m; ?> + '/' + <?php print $fin_1_d; ?>;
 
                 let myLineChart = new Chart(canvas, {
                     type: 'line',
                     data: {
-                        labels: [sta_1, '6/7～6/11', '6/14～6/18', '6/21～6/25', '6/28～7/2'],
+                        labels: [sta_1 + '～' + fin_1, 
+                                '6/7～6/11', 
+                                '6/14～6/18', 
+                                '6/21～6/25', 
+                                '6/28～7/2'],
                         datasets: [{
                                 label: '全体',
                                 data: [<?php

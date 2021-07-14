@@ -293,10 +293,13 @@ catch (Exception $e) {
             <script>
                 let canvas = document.getElementById("canvas");
 
+                let sta_1 = <?php print $sta_1; ?>;
+                console.log(sta_1);
+
                 let myLineChart = new Chart(canvas, {
                     type: 'line',
                     data: {
-                        labels: [<?php print $sta_1; ?>, '6/7～6/11', '6/14～6/18', '6/21～6/25', '6/28～7/2'],
+                        labels: [sta_1, '6/7～6/11', '6/14～6/18', '6/21～6/25', '6/28～7/2'],
                         datasets: [{
                                 label: '全体',
                                 data: [<?php

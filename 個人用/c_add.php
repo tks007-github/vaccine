@@ -56,7 +56,7 @@
 
     session_start();
     session_regenerate_id(true);
-    if (isset($_session['login']) == false)
+    // if (isset($_session['login']) == false)
 
         $mynum = $_SESSION['my_num'];
         $birth = $_SESSION['birth'];

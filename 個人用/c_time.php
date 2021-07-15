@@ -55,7 +55,7 @@
 
     session_start();
     session_regenerate_id(true);
-    if (isset($_session['login']) == false)
+    // if (isset($_session['login']) == false)
 
         $site_name = $_SESSION['site_name'];
 

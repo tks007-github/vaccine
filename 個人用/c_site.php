@@ -52,7 +52,7 @@
     <?php
     SESSION_start();
     SESSION_regenerate_id(true);
-    if (isset($_SESSION['login']) == false)
+    // if (isset($_SESSION['login']) == false)
 
 
     if(!isset($_POST['name'])){
@@ -130,9 +130,6 @@
                     </select>
                 </h5>
                 <br><br>
-                <!-- <input type="hidden" value=<?php print $name; ?> name="name"> -->
-                <!-- <input type="hidden" value=<?php print $tel; ?> name="tel"> -->
-                <!-- <input type="hidden" value=<?php print $mail; ?> name="mail"> -->
                 <br><br>
                 <h3><input type="submit" value="次へ"></h3>
             </form>

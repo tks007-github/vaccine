@@ -53,7 +53,7 @@
 
     SESSION_start();
     SESSION_regenerate_id(true);
-    if (isset($_session['login']) == false)
+    // if (isset($_session['login']) == false)
 
 
     /* 

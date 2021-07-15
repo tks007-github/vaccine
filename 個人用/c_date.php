@@ -52,12 +52,8 @@
 <?php
     SESSION_start();
     SESSION_regenerate_id(true);
-    if(isset($_SESSION['login'])==false)
+    // if(isset($_SESSION['login'])==false)
 
-   /* $name = $_POST['name'];
-    $tel = $_POST['tel'];
-    $mail = $_POST['mail'];*/
-    // var_dump($_POST);
     if(!isset($_POST['site_code'])){
 
         $site_code =  $_SESSION['site_code'];

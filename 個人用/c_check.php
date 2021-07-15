@@ -53,7 +53,7 @@
 
     session_start();
     session_regenerate_id(true);
-    if (isset($_session['login']) == false)
+    // if (isset($_session['login']) == false)
 
         $name = $_SESSION['name'];
         $mail = $_SESSION['mail'];

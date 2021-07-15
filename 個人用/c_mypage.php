@@ -106,7 +106,6 @@
 				<h1>予約者情報</h1>
 				<br><br>
 			<?php
-			print '<form method="post"action="c_delete_check.php">';
 			$rec = $stmt->fetch(PDO::FETCH_ASSOC);
 			$rec1 = $stmt1->fetch(PDO::FETCH_ASSOC);
 			switch ($rec1['site_code']) {
@@ -122,9 +121,11 @@
 					$site_name = 'つくば病院';
 					break;
 			}
+			
 			if ($rec == false) {
 				print '<h3>予約がありません</h3>';
-			} else if ($rec1['vac_sta_code'] == 1) {
+			} else if ($rec1['vac_sta_code'] == 0) {
+				print '<form method="post"action="c_delete_check.php">';
 				print '<input type="hidden" name="r_my_num" value="' . $rec['my_num'] . '">';
 				print '<h3>名前(カナ)：' . $rec['kana'] . '様</h3><br />';
 				print '<h3>電話番号：' . $rec['tel'] . '</h3>';
@@ -149,7 +150,7 @@
 				print '<br />';
 				print '<h3>日時：' . $rec1['res_date'] . ' / ' . $rec1['res_time'] . '</h3>';
 				print '<br />';
-				print '<h4>時間を守って来訪をお願いいたします</h4><br />';
+				print '<h4>ワクチン接種は完了しています</h4><br />';
 			}
 		}
 

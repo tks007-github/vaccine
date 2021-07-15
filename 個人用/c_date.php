@@ -152,16 +152,22 @@
 
         function funck_date_check() {
 
+            const input_date = document.querySelector('#date');
+            const input_date_y = Number(date.value.substr(0, 4));
+            const input_date_m = Number(date.value.substr(5, 2));
+            const input_date_d = Number(date.value.substr(8, 2));
+            const date_value = new Date(input_date_y, input_date_m - 1, input_date_d);
+            const day_value = date_value.getDay();
 
-            const birth = document.querySelector('#date');
-
-            if (birth.value == '') {
+            if (date.value == '') {
                 window.alert("希望日を入力してください");
                 return false;
 
-            } else {
+            } else if (day_value == 0 || day_value == 6) {
+                window.alert("希望日は平日を入力してください");
+                return false;
 
-                // window.alert('tel ok');
+            } else {
                 return true;
 
             }

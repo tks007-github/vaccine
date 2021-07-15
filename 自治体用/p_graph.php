@@ -287,7 +287,27 @@ catch (Exception $e) {
                 $sta_1_m = strval(date('m', strtotime($sta_1)));
                 $sta_1_d = strval(date('d', strtotime($sta_1)));
                 $fin_1_m = strval(date('m', strtotime($fin_1)));
-                $fin_1_d = strval(date('d', strtotime($fin_1))); 
+                $fin_1_d = strval(date('d', strtotime($fin_1)));
+                
+                $sta_2_m = strval(date('m', strtotime($sta_2)));
+                $sta_2_d = strval(date('d', strtotime($sta_2)));
+                $fin_2_m = strval(date('m', strtotime($fin_2)));
+                $fin_2_d = strval(date('d', strtotime($fin_2)));
+
+                $sta_3_m = strval(date('m', strtotime($sta_3)));
+                $sta_3_d = strval(date('d', strtotime($sta_3)));
+                $fin_3_m = strval(date('m', strtotime($fin_3)));
+                $fin_3_d = strval(date('d', strtotime($fin_3)));
+
+                $sta_4_m = strval(date('m', strtotime($sta_4)));
+                $sta_4_d = strval(date('d', strtotime($sta_4)));
+                $fin_4_m = strval(date('m', strtotime($fin_4)));
+                $fin_4_d = strval(date('d', strtotime($fin_4)));
+
+                $sta_5_m = strval(date('m', strtotime($sta_5)));
+                $sta_5_d = strval(date('d', strtotime($sta_5)));
+                $fin_5_m = strval(date('m', strtotime($fin_5)));
+                $fin_5_d = strval(date('d', strtotime($fin_5)));
             ?>
 
             <canvas id="canvas"></canvas>
@@ -297,14 +317,26 @@ catch (Exception $e) {
                 let sta_1 = <?php print $sta_1_m; ?> + '/' + <?php print $sta_1_d; ?>;
                 let fin_1 = <?php print $fin_1_m; ?> + '/' + <?php print $fin_1_d; ?>;
 
+                let sta_2 = <?php print $sta_2_m; ?> + '/' + <?php print $sta_2_d; ?>;
+                let fin_2 = <?php print $fin_2_m; ?> + '/' + <?php print $fin_2_d; ?>;
+
+                let sta_3 = <?php print $sta_3_m; ?> + '/' + <?php print $sta_3_d; ?>;
+                let fin_3 = <?php print $fin_3_m; ?> + '/' + <?php print $fin_3_d; ?>;
+
+                let sta_4 = <?php print $sta_4_m; ?> + '/' + <?php print $sta_4_d; ?>;
+                let fin_4 = <?php print $fin_4_m; ?> + '/' + <?php print $fin_4_d; ?>;
+
+                let sta_5 = <?php print $sta_5_m; ?> + '/' + <?php print $sta_5_d; ?>;
+                let fin_5 = <?php print $fin_5_m; ?> + '/' + <?php print $fin_5_d; ?>;
+
                 let myLineChart = new Chart(canvas, {
                     type: 'line',
                     data: {
                         labels: [sta_1 + '～' + fin_1, 
-                                '6/7～6/11', 
-                                '6/14～6/18', 
-                                '6/21～6/25', 
-                                '6/28～7/2'],
+                                sta_2 + '～' + fin_2, 
+                                sta_3 + '～' + fin_3, 
+                                sta_4 + '～' + fin_4, 
+                                sta_5 + '～' + fin_5],
                         datasets: [{
                                 label: '全体',
                                 data: [<?php

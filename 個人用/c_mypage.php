@@ -66,7 +66,7 @@
 		$stmt->execute($data);
 		//$dbh=null;
 
-		$sql1 = 'SELECT site_code,res_date,res_time FROM reservation WHERE my_num= ?';
+		$sql1 = 'SELECT site_code,res_date,res_time,vac_sta_code FROM reservation WHERE my_num= ?';
 		$stmt1 = $dbh->prepare($sql1);
 		$data1[] = $r_my_num;
 		$stmt1->execute($data1);
@@ -124,7 +124,7 @@
 			}
 			if ($rec == false) {
 				print '<h3>予約がありません</h3>';
-			} else {
+			} else if ($rec1['vac_sta_code'] == 1) {
 				print '<input type="hidden" name="r_my_num" value="' . $rec['my_num'] . '">';
 				print '<h3>名前(カナ)：' . $rec['kana'] . '様</h3><br />';
 				print '<h3>電話番号：' . $rec['tel'] . '</h3>';
@@ -139,6 +139,17 @@
 				print '<br />';
 				print '<h3><input type="submit"name="c_delete_check.php"value="予約取消し"></h3>';
 				print '</form>';
+			} else {
+				print '<h3>名前(カナ)：' . $rec['kana'] . '様</h3><br />';
+				print '<h3>電話番号：' . $rec['tel'] . '</h3>';
+				print '<br />';
+				print '<h3>メールアドレス：' . $rec['mail'] . '</h3>';
+				print '<br />';
+				print '<h3>会場：' . $site_name . '</h3>';
+				print '<br />';
+				print '<h3>日時：' . $rec1['res_date'] . ' / ' . $rec1['res_time'] . '</h3>';
+				print '<br />';
+				print '<h4>時間を守って来訪をお願いいたします</h4><br />';
 			}
 		}
 

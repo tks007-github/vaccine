@@ -82,7 +82,7 @@
 
     $sql = "SELECT site_name FROM site WHERE site_code = ?";
     $stmt = $dbh -> prepare($sql);
-    $data[]=$site_code ;
+    $data[] = $site_code;
     $stmt -> execute($data);
     $rec = $stmt-> fetch(PDO::FETCH_ASSOC);
     $dbh=null;
@@ -91,8 +91,8 @@
     $name = $_SESSION['name'];
     $mail = $_SESSION['mail'];
     $tel = $_SESSION['tel'];
-    $_SESSION['site_code']=$site_code;
-    $_SESSION['site_name']=$rec['site_name'];
+    $_SESSION['site_code'] = $site_code;
+    $_SESSION['site_name'] = $rec['site_name'];
     $site_name = $_SESSION['site_name'];
 
 

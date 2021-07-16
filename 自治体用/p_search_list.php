@@ -165,7 +165,6 @@ if (isset($_SESSION['login']) == false)      // セッション変数loginに値
                     $stmt2->execute($data2);
                     $rec2 = $stmt2->fetch(PDO::FETCH_ASSOC);
                     $site_name = $rec2['site_name'];
-                    print $site_name;
                 }
 
                 if ($vac_code == '') {

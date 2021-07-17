@@ -8,6 +8,7 @@ if (isset($_SESSION['login']) == false)      // セッション変数loginに値
       exit();
 }
 
+date_default_timezone_set('Asia/Tokyo');
 // s_search_list.phpから渡された値を$_POSTで受け取る
 $csv = $_POST['csv'];
 $file = fopen('./' . date('YmdHis') . 'list.csv', 'w');

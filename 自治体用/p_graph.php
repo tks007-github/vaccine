@@ -11,6 +11,7 @@ if (isset($_SESSION['login']) == false)      // セッション変数loginに値
 // エラー対策を行う(例外処理)
 try {
     date_default_timezone_set('Asia/Tokyo');
+    // date('w')は日：0 ～ 土：6 なので日曜日にグラフの横軸が切り替わる
     $day = -(date('w') + 2);
     $fin_5 = date("Y-m-d", strtotime($day . "day"));        // 1週間前の金曜日の日付
     $sta_5 = date("Y-m-d", strtotime($day-4 . "day"));      // 1週間前の月曜日の日付

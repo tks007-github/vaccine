@@ -126,7 +126,7 @@ if (isset($_SESSION['login']) == false)      // セッション変数loginに値
                     JOIN Citizen AS C USING(my_num)
                     JOIN Site AS S USING(site_code)
                     JOIN Vaccine AS V USING(vac_code)
-                    WHERE 1
+                    WHERE R.vac_sta_code = 1
                     ';
 
                 if ($site_code != "") {
